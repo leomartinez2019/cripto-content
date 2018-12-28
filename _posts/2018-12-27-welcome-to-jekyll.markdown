@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Bitcoin: Un Sistema de Dinero Electrónico Punto A Punto"
+title:  "Bitcoin: Un Sistema Distribuido de Dinero Electrónico"
 date:   2018-12-27 11:56:53 -0500
 categories: bitcoin
 mathjax: true
@@ -26,27 +26,24 @@ La red misma requiere una estructuración mínima. Los mensajes se transmiten co
 a voluntad aceptando la cadena de prueba de trabajo más larga como prueba de lo sucedido
 mientras estaban ausentes.
 
-## 1. Introduction
+## 1. Introducción
 
-Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments.
-While the system works well enough for most transactions, it still suffers from the inherent weaknesses of the trust based model.
-Completely non-reversible transactions are not really possible, since financial institutions cannot avoid mediating disputes.
-The cost of mediation increases transaction costs, limiting the minimum practical transaction size and cutting off the possibility for small casual transactions, and there is a broader cost in the loss of ability to make non-reversible payments for non-reversible services.
-With the possibility of reversal, the need for trust spreads.
-Merchants must be wary of their customers, hassling them for more information than they would otherwise need.
-A certain percentage of fraud is accepted as unavoidable.
-These costs and payment uncertainties can be avoided in person by using physical currency, but no mechanism exists to make payments over a communications channel without a trusted party.
+El comercio en linea ha llegado a depender casi exclusivamente de las instituciones financieras que funcionan como terceros fiables para
+procesar pagos electrónicos. Si bien el sistema funciona lo suficientemente bien para la mayoría de las transacciones, todavía sufre de las debilidades
+inherentes del modelo basado en la fiducia. Las transacciones completamente irreversibles no son realmente posibles ya que las instituciones financieras no pueden
+evitar inmiscuirse en la resolución de las disputas. El costo de la concialiación aumenta los costos de la transacciín. lo que limita el tamaño práctico mínimo de la transacción, eliminando la posibilidad de transacciones pequeñas ocasionales y pagos irreversibles para servicios irreversibles.
+Al ser posible revertir una transacción, se aumenta la necesidad de mutua confianza. Los comerciantes deben desconfiar de sus clientes exigiéndoles más información de lo que realmente se necesita. Aquí se acepta cierto porcentaje de fraude como algo inevitable. Estas incertidumbres de costos y pagos
+se pueden evitar personalmente usando moneda física, sin embargo no hay un mecanismo para hacer pagos a travès de un canal de comunicacón sin un tercero de confianza.
+Lo que se necesita es un sistema de pago electrónico basado en la prueba criptográfica en vez de una fiducia, lo que permitiría a dos partes cualquieras hacer una transacción directamente entre sí sin la necesidad de una fiducia.
+Las transacciones que son computacionalmente imprácticas de revertir protegerían a los vendedores del fraude y se podrían implementar mecanismos rutinarios de garantía para proteger a los compradores.
+En este documento se propone una solución al problema del gasto doble usando un servidor distribuido que registra el tiempo preciso para generar una prueba computacional del orden cronológico de las transacciones. El sistema es seguro siempre y cuando
+los nodos controlen colectivamente más poder de CPU que cualquier grupo de atacantes que cooperen juntos.
 
-What is needed is an electronic payment system based on cryptographic proof instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party.
-Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers.
-In this paper, we propose a solution to the double-spending problem using a peer-to-peer distributed timestamp server to generate computational proof of the chronological order of transactions.
-The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+## 2. Las Transacciones
 
-## 2. Transactions
-
-We define an electronic coin as a chain of digital signatures.
-Each owner transfers the coin to the next by digitally signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the coin.
-A payee can verify the signatures to verify the chain of ownership.
+Definimos una moneda electrónica como una cadena de firmas electrónicas.
+Cada poseedor transfiere la moneda a la siguiente persona por medio de una firma digital de un hash de la transacción previa y la clave pública del siguiente poseedor y agregando éstos al final de la moneda.
+Un beneficiario puede verificar las firmas para comprobar la cadena de propiedad.
 
 ![](/images/transactions.svg)
 
@@ -62,7 +59,7 @@ In the mint based model, the mint was aware of all transactions and decided whic
 To accomplish this without a trusted party, transactions must be publicly announced [@url:http://www.weidai.com/bmoney.txt], and we need a system for participants to agree on a single history of the order in which they were received.
 The payee needs proof that at the time of each transaction, the majority of nodes agreed it was the first received.
 
-## 3. Timestamp Server
+## 3. El Servidor de Registro de Fechas
 
 The solution we propose begins with a timestamp server.
 A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [2-5].
@@ -71,7 +68,7 @@ Each timestamp includes the previous timestamp in its hash, forming a chain, wit
 
 ![](/images/timestamp-server.svg)
 
-## 4. Proof-of-Work
+## 4. La Prueba de Trabajo
 
 To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system similar to Adam Back's Hashcash [6], rather than newspaper or Usenet posts.
 The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits.
@@ -94,7 +91,7 @@ We will show later that the probability of a slower attacker catching up diminis
 To compensate for increasing hardware speed and varying interest in running nodes over time, the proof-of-work difficulty is determined by a moving average targeting an average number of blocks per hour.
 If they're generated too fast, the difficulty increases.
 
-## 5. Network
+## 5. La Red
 
 The steps to run the network are as follows:
 
@@ -115,7 +112,7 @@ As long as they reach many nodes, they will get into a block before long.
 Block broadcasts are also tolerant of dropped messages.
 If a node does not receive a block, it will request it when it receives the next block and realizes it missed one.
 
-## 6. Incentive
+## 6. Los Incentivos
 
 By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block.
 This adds an incentive for nodes to support the network, and provides a way to initially distribute coins into circulation, since there is no central authority to issue them.
@@ -130,7 +127,7 @@ The incentive may help encourage nodes to stay honest.
 If a greedy attacker is able to assemble more CPU power than all the honest nodes, he would have to choose between using it to defraud people by stealing back his payments, or using it to generate new coins.
 He ought to find it more profitable to play by the rules, such rules that favour him with more new coins than everyone else combined, than to undermine the system and the validity of his own wealth.
 
-## 7. Reclaiming Disk Space
+## 7. Reducción de Espacio de Memoria
 
 Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space.
 To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.
@@ -143,7 +140,7 @@ A block header with no transactions would be about 80 bytes.
 If we suppose blocks are generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year.
 With computer systems typically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of 1.2GB per year, storage should not be a problem even if the block headers must be kept in memory.
 
-## 8. Simplified Payment Verification
+## 8. Verificación Simplificada de Pago
 
 It is possible to verify payments without running a full network node.
 A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in.
@@ -156,7 +153,7 @@ While network nodes can verify transactions for themselves, the simplified metho
 One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency.
 Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
 
-## 9. Combining and Splitting Value
+## 9. Combinando y Dividiendo el Valor
 
 Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer.
 To allow value to be split and combined, transactions contain multiple inputs and outputs.
@@ -167,7 +164,7 @@ Normally there will be either a single input from a larger previous transaction 
 It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here.
 There is never the need to extract a complete standalone copy of a transaction's history.
 
-## 10. Privacy
+## 10. Privacidad
 
 The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party.
 The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.
@@ -180,7 +177,7 @@ As an additional firewall, a new key pair should be used for each transaction to
 Some linking is still unavoidable with multi-input transactions, which necessarily reveal that their inputs were owned by the same owner.
 The risk is that if the owner of a key is revealed, linking could reveal other transactions that belonged to the same owner.
 
-## 11. Calculations
+## 11. Cálculos
 
 We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain.
 Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker.
@@ -309,7 +306,7 @@ q=0.40   z=89
 q=0.45   z=340
 {% endhighlight %}
 
-## 12. Conclusion
+## 12. Conclusión
 
 We have proposed a system for electronic transactions without relying on trust.
 We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending.
