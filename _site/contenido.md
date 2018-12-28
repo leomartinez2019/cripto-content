@@ -1,31 +1,13 @@
----
-layout: post
-title:  "Bitcoin: Un Sistema de Dinero Electrónico Punto A Punto"
-date:   2018-12-27 11:56:53 -0500
-categories: bitcoin
-mathjax: true
----
+## Abstract {.page_break_before}
 
-Satoshi Nakamoto
-
-satoshi@gmx.com
-
-www.bitcoin.org
-
-## Abstract
-
-Una versión de dinero electrónico basada totalmente en la cooperación entre pares, permitiría que los pagos en linea se
-envíen directamente de un par a otro sin pasar por una institución financiera.
-Las firmas digitales representan parte de la solución, pero los beneficios principales
-se pierden si se require una tercera persona para evitar el doble gasto. Proponemos una solución
-al problema del doble gasto usando una red entre pares. La red marca la fecha de las transacciones por medio de un hash que se incluye en una cadena
-sucesiva de prueba de trabajo basado en hashes, creando un registro que no se puede modificar
-sin rehacer la prueba de trabajo. La cadena más larga no solo sirve como prueba de la secuencia de los eventos ocurridos, sino también como prueba de su proveniencia del grupo con mayor poder de CPU.
-Mientras la mayoría del poder de CPU se controle por nodos que no estén cooperando para atacar la red, éstos generarán la cadena más larga y sobrepasarán a los atacantes.
-La red misma requiere una estructuración mínima. Los mensajes se transmiten con base en el mejor esfuerzo y los nodos pueden abandonar y luego regresar a la red
-a voluntad aceptando la cadena de prueba de trabajo más larga como prueba de lo sucedido
-mientras estaban ausentes.
-
+A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution.
+Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending.
+We propose a solution to the double-spending problem using a peer-to-peer network.
+The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work.
+The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power.
+As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers.
+The network itself requires minimal structure.
+Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.
 ## 1. Introduction
 
 Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments.
@@ -48,7 +30,7 @@ We define an electronic coin as a chain of digital signatures.
 Each owner transfers the coin to the next by digitally signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the coin.
 A payee can verify the signatures to verify the chain of ownership.
 
-![](/images/transactions.svg)
+![](images/transactions.svg)
 
 The problem of course is the payee can't verify that one of the owners did not double-spend the coin.
 A common solution is to introduce a trusted central authority, or mint, that checks every transaction for double spending.
@@ -65,15 +47,15 @@ The payee needs proof that at the time of each transaction, the majority of node
 ## 3. Timestamp Server
 
 The solution we propose begins with a timestamp server.
-A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [2-5].
+A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [@tag:massias; @doi:10.1007/bf00196791; @doi:10.1007/978-1-4613-9323-8_24; @doi:10.1145/266420.266430].
 The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash.
 Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
 
-![](/images/timestamp-server.svg)
+![](images/timestamp-server.svg)
 
 ## 4. Proof-of-Work
 
-To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system similar to Adam Back's Hashcash [6], rather than newspaper or Usenet posts.
+To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system similar to Adam Back's Hashcash [@tag:hashcash], rather than newspaper or Usenet posts.
 The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits.
 The average work required is exponential in the number of zero bits required and can be verified by executing a single hash.
 
@@ -81,7 +63,7 @@ For our timestamp network, we implement the proof-of-work by incrementing a nonc
 Once the CPU effort has been expended to make it satisfy the proof-of-work, the block cannot be changed without redoing the work.
 As later blocks are chained after it, the work to change the block would include redoing all the blocks after it.
 
-![](/images/proof-of-work.svg)
+![](images/proof-of-work.svg)
 
 The proof-of-work also solves the problem of determining representation in majority decision making.
 If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs.
@@ -133,11 +115,11 @@ He ought to find it more profitable to play by the rules, such rules that favour
 ## 7. Reclaiming Disk Space
 
 Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space.
-To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.
+To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [@doi:10.1109/sp.1980.10006; @tag:massias; @doi:10.1145/266420.266430], with only the root included in the block's hash.
 Old blocks can then be compacted by stubbing off branches of the tree.
 The interior hashes do not need to be stored.
 
-![](/images/reclaiming-disk-space.svg)
+![](images/reclaiming-disk-space.svg)
 
 A block header with no transactions would be about 80 bytes.
 If we suppose blocks are generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year.
@@ -149,7 +131,7 @@ It is possible to verify payments without running a full network node.
 A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in.
 He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
 
-![](/images/simplified-payment-verification.svg)
+![](images/simplified-payment-verification.svg)
 
 As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker.
 While network nodes can verify transactions for themselves, the simplified method can be fooled by an attacker's fabricated transactions for as long as the attacker can continue to overpower the network.
@@ -162,7 +144,7 @@ Although it would be possible to handle coins individually, it would be unwieldy
 To allow value to be split and combined, transactions contain multiple inputs and outputs.
 Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
 
-![](/images/combining-splitting-value.svg)
+![](images/combining-splitting-value.svg)
 
 It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here.
 There is never the need to extract a complete standalone copy of a transaction's history.
@@ -174,7 +156,7 @@ The necessity to announce all transactions publicly precludes this method, but p
 The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone.
 This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
 
-![](/images/privacy.svg)
+![](images/privacy.svg)
 
 As an additional firewall, a new key pair should be used for each transaction to keep them from being linked to a common owner.
 Some linking is still unavoidable with multi-input transactions, which necessarily reveal that their inputs were owned by the same owner.
@@ -192,7 +174,7 @@ The success event is the honest chain being extended by one block, increasing it
 
 The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem.
 Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven.
-We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]:
+We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [@url:https://archive.org/details/AnIntroductionToProbabilityTheoryAndItsApplicationsVolume1]:
 
 $$
 \begin{eqnarray*}
@@ -220,7 +202,7 @@ The receiver generates a new key pair and gives the public key to the sender sho
 This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment.
 Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction.
 
-The recipient waits until the transaction has been added to a block and $$ z $$ blocks have been linked after it.
+The recipient waits until the transaction has been added to a block and $z$ blocks have been linked after it.
 He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:
 
 $$
@@ -246,7 +228,7 @@ $$
 
 Converting to C code...
 
-{% highlight c %}
+```c
 #include
 double AttackerSuccessProbability(double q, int z)
 {
@@ -254,7 +236,7 @@ double AttackerSuccessProbability(double q, int z)
 	double lambda = z * (q / p);
 	double sum = 1.0;
 	int i, k;
-v	for (k = 0; k <= z; k++)
+	for (k = 0; k <= z; k++)
 	{
 		double poisson = exp(-lambda);
 		for (i = 1; i <= k; i++)
@@ -263,11 +245,11 @@ v	for (k = 0; k <= z; k++)
 	}
 	return sum;
 }
-{% endhighlight %}
+```
 
-Running some results, we can see the probability drop off exponentially with $$ z $$.
+Running some results, we can see the probability drop off exponentially with $z$.
 
-{% highlight c %}
+```
 q=0.1
 z=0    P=1.0000000
 z=1    P=0.2045873
@@ -293,11 +275,11 @@ z=35   P=0.0000379
 z=40   P=0.0000095
 z=45   P=0.0000024
 z=50   P=0.0000006
-{% endhighlight %}
+```
 
 Solving for P less than 0.1%...
 
-{% highlight c %}
+```  
 P < 0.001
 q=0.10   z=5
 q=0.15   z=8
@@ -307,7 +289,7 @@ q=0.30   z=24
 q=0.35   z=41
 q=0.40   z=89
 q=0.45   z=340
-{% endhighlight %}
+```
 
 ## 12. Conclusion
 
