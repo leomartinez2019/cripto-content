@@ -5,16 +5,14 @@ date:   2018-12-27 11:56:53 -0500
 categories: bitcoin
 mathjax: true
 ---
+<div style="text-align:center; line-height: 0.5">
+  <p>Satoshi Nakamoto</p>
+  <p>satoshin@gmx.com</p>
+  <p>www.bitcoin.org</p>
+</div>
 
-Satoshi Nakamoto
-
-satoshi@gmx.com
-
-www.bitcoin.org
-
-## Abstract
-
-Una versión de dinero electrónico basada totalmente en la cooperación entre pares, permitiría que los pagos en linea se
+<div style="font-size: 90%; text-align: justify; width: 80%; margin: auto;">
+<b>Abstract</b>. Una versión de dinero electrónico basada totalmente en la cooperación entre pares, permitiría que los pagos en linea se
 envíen directamente de un par a otro sin pasar por una institución financiera.
 Las firmas digitales representan parte de la solución, pero los beneficios principales
 se pierden si se require una tercera persona para evitar el doble gasto. Proponemos una solución
@@ -25,16 +23,17 @@ Mientras la mayoría del poder de CPU se controle por nodos que no estén cooper
 La red misma requiere una estructuración mínima. Los mensajes se transmiten con base en el mejor esfuerzo y los nodos pueden abandonar y luego regresar a la red
 a voluntad aceptando la cadena de prueba de trabajo más larga como prueba de lo sucedido
 mientras estaban ausentes.
+</div>
 
 ## 1. Introducción
 
 El comercio en linea ha llegado a depender casi exclusivamente de las instituciones financieras que funcionan como terceros fiables para
 procesar pagos electrónicos. Si bien el sistema funciona lo suficientemente bien para la mayoría de las transacciones, todavía sufre de las debilidades
 inherentes del modelo basado en la fiducia. Las transacciones completamente irreversibles no son realmente posibles ya que las instituciones financieras no pueden
-evitar inmiscuirse en la resolución de las disputas. El costo de la concialiación aumenta los costos de la transacciín. lo que limita el tamaño práctico mínimo de la transacción, eliminando la posibilidad de transacciones pequeñas ocasionales y pagos irreversibles para servicios irreversibles.
+evitar inmiscuirse en la resolución de las disputas. El costo de la concialiación aumenta los costos de la transacción, lo que limita el tamaño práctico mínimo de la transacción, eliminando la posibilidad de transacciones pequeñas ocasionales y pagos irreversibles para servicios irreversibles.
 Al ser posible revertir una transacción, se aumenta la necesidad de mutua confianza. Los comerciantes deben desconfiar de sus clientes exigiéndoles más información de lo que realmente se necesita. Aquí se acepta cierto porcentaje de fraude como algo inevitable. Estas incertidumbres de costos y pagos
-se pueden evitar personalmente usando moneda física, sin embargo no hay un mecanismo para hacer pagos a travès de un canal de comunicacón sin un tercero de confianza.
-Lo que se necesita es un sistema de pago electrónico basado en la prueba criptográfica en vez de una fiducia, lo que permitiría a dos partes cualquieras hacer una transacción directamente entre sí sin la necesidad de una fiducia.
+se pueden evitar personalmente usando moneda física, sin embargo no hay un mecanismo para hacer pagos a través de un canal de comunicación sin un tercero de confianza.
+Lo que se necesita es un sistema de pago electrónico basado en una prueba criptográfica en vez de una fiducia, lo que permitiría a dos partes cualquieras hacer una transacción directamente entre sí sin la necesidad de una fiducia.
 Las transacciones que son computacionalmente imprácticas de revertir protegerían a los vendedores del fraude y se podrían implementar mecanismos rutinarios de garantía para proteger a los compradores.
 En este documento se propone una solución al problema del gasto doble usando un servidor distribuido que registra el tiempo preciso para generar una prueba computacional del orden cronológico de las transacciones. El sistema es seguro siempre y cuando
 los nodos controlen colectivamente más poder de CPU que cualquier grupo de atacantes que cooperen juntos.
@@ -47,10 +46,10 @@ Un beneficiario puede verificar las firmas para comprobar la cadena de propiedad
 
 ![](/images/transactions.svg)
 
-The problem of course is the payee can't verify that one of the owners did not double-spend the coin.
-A common solution is to introduce a trusted central authority, or mint, that checks every transaction for double spending.
-After each transaction, the coin must be returned to the mint to issue a new coin, and only coins issued directly from the mint are trusted not to be double-spent.
-The problem with this solution is that the fate of the entire money system depends on the company running the mint, with every transaction having to go through them, just like a bank.
+El problema por supuesto es que el beneficiario no puede verificar que uno de los poseedores no gastó doblemente la moneda.
+Una solución común es incluir una autoridad central confiable, o casa de moneda, que revisa el gasto duplicado en cada transacción.
+Luego de cada transacción, la moneda debe ser regresada a la casa de la moneda para emitir una nueva moneda y solo las monedas emitidas directamente por la casa de moneda se confia que no son gastadas doblemente.
+El problema con esta solución es que el destino de todo el sistema monetario dependa de la compañía emisora y cada transacción debe pasar por allí tal como un banco.
 
 We need a way for the payee to know that the previous owners did not sign any earlier transactions.
 For our purposes, the earliest transaction is the one that counts, so we don't care about later attempts to double-spend.
@@ -59,7 +58,7 @@ In the mint based model, the mint was aware of all transactions and decided whic
 To accomplish this without a trusted party, transactions must be publicly announced [@url:http://www.weidai.com/bmoney.txt], and we need a system for participants to agree on a single history of the order in which they were received.
 The payee needs proof that at the time of each transaction, the majority of nodes agreed it was the first received.
 
-## 3. El Servidor de Registro de Fechas
+## 3. El Servidor de Registro de Tiempo
 
 The solution we propose begins with a timestamp server.
 A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [2-5].
