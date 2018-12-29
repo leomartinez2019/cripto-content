@@ -158,7 +158,7 @@
            x="471.02161"
            y="57.179901"
            id="tspan2991-0-4"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 429.85792,102.63676 69.19545,0 0,9.34392"
          id="path3814-5-6"
@@ -203,11 +203,11 @@
            x="506.73477"
            y="76.120262"
            id="tspan2997-06-6"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="506.73477"
            y="88.620262"
            id="tspan2999-9-2"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -225,11 +225,11 @@
            x="506.22971"
            y="166.02385"
            id="tspan3801-1-3"
-           style="text-align:center;text-anchor:middle">Owner 0's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="506.22971"
            y="178.52385"
            id="tspan3806-8-2"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 0</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -265,11 +265,11 @@
            x="507.06851"
            y="227.8271"
            id="tspan2997-0-4-2"
-           style="text-align:center;text-anchor:middle">Owner 3's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Privada del</tspan><tspan
            x="507.06851"
            y="240.3271"
            id="tspan2999-5-4-8"
-           style="text-align:center;text-anchor:middle">Private Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 3</tspan></text>
       <rect
          width="84.547424"
          height="150.7124"
@@ -287,7 +287,7 @@
            x="471.02161"
            y="57.179874"
            id="tspan2991-4-3-1"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 429.85792,102.63674 69.19545,0 0,9.34391"
          id="path3814-9-2-0"
@@ -332,11 +332,11 @@
            x="506.73477"
            y="76.120239"
            id="tspan2997-03-2-7"
-           style="text-align:center;text-anchor:middle">Owner 3's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="506.73477"
            y="88.620239"
            id="tspan2999-0-2-7"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 3</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -354,11 +354,11 @@
            x="506.22971"
            y="166.02382"
            id="tspan3801-7-6-7"
-           style="text-align:center;text-anchor:middle">Owner 2's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="506.22971"
            y="178.52382"
            id="tspan3806-4-5-2"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 2</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -402,7 +402,7 @@
            x="351.02161"
            y="57.179901"
            id="tspan2991-0"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 309.85792,102.63676 69.19545,0 0,9.34392"
          id="path3814-5"
@@ -447,11 +447,11 @@
            x="386.73477"
            y="76.120262"
            id="tspan2997-06"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="386.73477"
            y="88.620262"
            id="tspan2999-9"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -469,11 +469,11 @@
            x="386.22971"
            y="166.02385"
            id="tspan3801-1"
-           style="text-align:center;text-anchor:middle">Owner 0's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="386.22971"
            y="178.52385"
            id="tspan3806-8"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 0</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -509,11 +509,11 @@
            x="387.06851"
            y="227.8271"
            id="tspan2997-0-4"
-           style="text-align:center;text-anchor:middle">Owner 2's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Privada del</tspan><tspan
            x="387.06851"
            y="240.3271"
            id="tspan2999-5-4"
-           style="text-align:center;text-anchor:middle">Private Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 2</tspan></text>
       <rect
          width="84.547424"
          height="150.7124"
@@ -531,7 +531,7 @@
            x="351.02161"
            y="57.179874"
            id="tspan2991-4-3"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 309.85792,102.63674 69.19545,0 0,9.34391"
          id="path3814-9-2"
@@ -576,11 +576,11 @@
            x="386.73477"
            y="76.120239"
            id="tspan2997-03-2"
-           style="text-align:center;text-anchor:middle">Owner 2's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="386.73477"
            y="88.620239"
            id="tspan2999-0-2"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 2</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -598,11 +598,11 @@
            x="386.22971"
            y="166.02382"
            id="tspan3801-7-6"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="386.22971"
            y="178.52382"
            id="tspan3806-4-5"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -649,7 +649,7 @@
            x="458.75223"
            y="-91.694557"
            id="tspan4477-1"
-           style="font-size:8px">Verify</tspan></text>
+           style="font-size:8px">Verificar</tspan></text>
       <text
          x="229.34293"
          y="432.17374"
@@ -660,7 +660,7 @@
            x="229.34293"
            y="432.17374"
            id="tspan4477-9-9"
-           style="font-size:8px">Sign</tspan></text>
+           style="font-size:8px">Firmar</tspan></text>
       <rect
          width="84.547424"
          height="150.7124"
@@ -678,7 +678,7 @@
            x="231.02162"
            y="57.179901"
            id="tspan2991"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 189.85792,102.63676 69.19545,0 0,9.34392"
          id="path3814"
@@ -723,11 +723,11 @@
            x="266.73477"
            y="76.120262"
            id="tspan2997"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="266.73477"
            y="88.620262"
            id="tspan2999"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -745,11 +745,11 @@
            x="266.22971"
            y="166.02385"
            id="tspan3801"
-           style="text-align:center;text-anchor:middle">Owner 0's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="266.22971"
            y="178.52385"
            id="tspan3806"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 0</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -785,11 +785,11 @@
            x="267.06851"
            y="227.8271"
            id="tspan2997-0"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Privada del</tspan><tspan
            x="267.06851"
            y="240.3271"
            id="tspan2999-5"
-           style="text-align:center;text-anchor:middle">Private Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="84.547424"
          height="150.7124"
@@ -807,7 +807,7 @@
            x="231.02162"
            y="57.179874"
            id="tspan2991-4"
-           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transaction</tspan></text>
+           style="font-weight:bold;-inkscape-font-specification:Sans Bold">Transacción</tspan></text>
       <path
          d="m 189.85792,102.63674 69.19545,0 0,9.34391"
          id="path3814-9"
@@ -852,11 +852,11 @@
            x="266.73477"
            y="76.120239"
            id="tspan2997-03"
-           style="text-align:center;text-anchor:middle">Owner 1's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Clave Pública del</tspan><tspan
            x="266.73477"
            y="88.620239"
            id="tspan2999-0"
-           style="text-align:center;text-anchor:middle">Public Key</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 1</tspan></text>
       <rect
          width="60.143658"
          height="34.132225"
@@ -874,11 +874,11 @@
            x="266.22971"
            y="166.02382"
            id="tspan3801-7"
-           style="text-align:center;text-anchor:middle">Owner 0's</tspan><tspan
+           style="text-align:center;text-anchor:middle">Firma del</tspan><tspan
            x="266.22971"
            y="178.52382"
            id="tspan3806-4"
-           style="text-align:center;text-anchor:middle">Signature</tspan></text>
+           style="text-align:center;text-anchor:middle">Dueño 0</tspan></text>
       <rect
          width="36.596325"
          height="19.17119"
@@ -925,7 +925,7 @@
            x="353.26355"
            y="-34.491974"
            id="tspan4477"
-           style="font-size:8px">Verify</tspan></text>
+           style="font-size:8px">Verificar</tspan></text>
       <text
          x="135.6732"
          y="357.16718"
@@ -936,7 +936,7 @@
            x="135.6732"
            y="357.16718"
            id="tspan4477-9"
-           style="font-size:8px">Sign</tspan></text>
+           style="font-size:8px">Firmar</tspan></text>
       <path
          d="m 549.5881,102.63674 31.85437,0"
          id="path3814-9-2-0-6"

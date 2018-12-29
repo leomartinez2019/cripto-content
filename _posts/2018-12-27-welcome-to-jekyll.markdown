@@ -1,14 +1,19 @@
 ---
 layout: post
-title:  "Bitcoin: Un Sistema Distribuido de Dinero Electrónico"
+title:  "Documentación Técnica de Bitcoin"
 date:   2018-12-27 11:56:53 -0500
 categories: bitcoin
 mathjax: true
 ---
+
+
 <div style="text-align:center; line-height: 0.5">
+  <h3>Bitcoin: Un Sistema Distribuido de Dinero Electrónico</h3>
+  <div style="margin: 32px 0 32px 0;">
   <p>Satoshi Nakamoto</p>
   <p>satoshin@gmx.com</p>
   <p>www.bitcoin.org</p>
+  </div>
 </div>
 
 <div style="font-size: 90%; text-align: justify; width: 80%; margin: auto;">
@@ -27,7 +32,7 @@ mientras estaban ausentes.
 
 ## 1. Introducción
 
-El comercio en linea ha llegado a depender casi exclusivamente de las instituciones financieras que funcionan como terceros fiables para
+El comercio en linea ha llegado a depender casi exclusivamente de las instituciones financieras que funcionan como intermediarios de confianza para
 procesar pagos electrónicos. Si bien el sistema funciona lo suficientemente bien para la mayoría de las transacciones, todavía sufre de las debilidades
 inherentes del modelo basado en la fiducia. Las transacciones completamente irreversibles no son realmente posibles ya que las instituciones financieras no pueden
 evitar inmiscuirse en la resolución de las disputas. El costo de la concialiación aumenta los costos de la transacción, lo que limita el tamaño práctico mínimo de la transacción, eliminando la posibilidad de transacciones pequeñas ocasionales y pagos irreversibles para servicios irreversibles.
@@ -51,44 +56,38 @@ Una solución común es incluir una autoridad central confiable, o casa de moned
 Luego de cada transacción, la moneda debe ser regresada a la casa de la moneda para emitir una nueva moneda y solo las monedas emitidas directamente por la casa de moneda se confia que no son gastadas doblemente.
 El problema con esta solución es que el destino de todo el sistema monetario dependa de la compañía emisora y cada transacción debe pasar por allí tal como un banco.
 
-We need a way for the payee to know that the previous owners did not sign any earlier transactions.
-For our purposes, the earliest transaction is the one that counts, so we don't care about later attempts to double-spend.
-The only way to confirm the absence of a transaction is to be aware of all transactions.
-In the mint based model, the mint was aware of all transactions and decided which arrived first.
-To accomplish this without a trusted party, transactions must be publicly announced [@url:http://www.weidai.com/bmoney.txt], and we need a system for participants to agree on a single history of the order in which they were received.
-The payee needs proof that at the time of each transaction, the majority of nodes agreed it was the first received.
+Necesitamos una forma que el beneficiario sepa que los dueños anteriores no firmaron transacciones anteriores. Para nuestros propósitos,
+la transacción previa es la que cuenta, de modo que no nos preocupemos por intentos posteriores de gasto doble.
+La única forma de confirmar la ausencia de una transacción es estar al tanto de todas las transacciones. En el modelo del emisor de moneda, el emisor estaba al tanto de todas las transacciones y decidía cual llegaba primero.
+Para lograr esto sin un intermediario fiable, las transacciones deben ser anunciadas públicamente [1], y necesitamos un sistema de participantes para que esten de acuerdo en una sola historia
+del orden en las que fueron recibidas. El beneficiario necesita la prueba de que en el momento de cada transacción, la mayoría de los nodos acordaron que esa fue la primera que recibieron.
 
-## 3. El Servidor de Registro de Tiempo
+## 3. El Servidor de Registro Cronológico
 
-The solution we propose begins with a timestamp server.
-A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [2-5].
-The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash.
-Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
+La solución que proponemos inicia con un servidor de registro cronológico. Un servidor de este tipo toma un hash de un bloque de
+objetos para ser registrados cronológicamente y publica el hash de forma amplia, como en un periódico o una publicación de Usenet [2-5].
+El registro cronológico prueba que los datos debieron existir en el momento, obviamente, para poder ser incluidos en el hash. Cada registro cronológico incluye el registro anterior en su propio hash formando así una cadena, lo que permite a cada registro adicional reforzar los anteriores.
 
 ![](/images/timestamp-server.svg)
 
 ## 4. La Prueba de Trabajo
 
-To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system similar to Adam Back's Hashcash [6], rather than newspaper or Usenet posts.
-The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits.
-The average work required is exponential in the number of zero bits required and can be verified by executing a single hash.
+Para implementar un servidor distribuido de registro cronológico  entre pares, necesitaremos usar un siatema de prueba de trabajo similar al HashCash de Adam Back [] en vez de publicaciones en un periódico o Usenet.
+La prueba de trabajo involucra la lectura de un valor que cuando se hashea, por ejemplo, por medio de SHA-256, el hash comienza con una serie de bits cero.
+El promedio de trabajo necesario es exponencial a la cantidad de bits cero necesarias y se puede verificar ejecutando un hash simple.
 
-For our timestamp network, we implement the proof-of-work by incrementing a nonce in the block until a value is found that gives the block's hash the required zero bits.
-Once the CPU effort has been expended to make it satisfy the proof-of-work, the block cannot be changed without redoing the work.
-As later blocks are chained after it, the work to change the block would include redoing all the blocks after it.
+Para nuestro servidor de registro cronológico, implementamos la prueba de trabajo aumentando el valor único (nonce) en el bloque hasta que se encuentra un valor que le da al hash del bloque los bits cero requeridos.
+Una vez el esfuerzo CPU se ha utilizado por completo para satisfacer la prueba de trabajo, el bloque no se puede modificar sin rehacer el trabajo. A medida que bloques posteriores se encadenan, el trabajo para modificar el bloque incluiría rehacer todos los bloques siguientes.
 
 ![](/images/proof-of-work.svg)
 
-The proof-of-work also solves the problem of determining representation in majority decision making.
-If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs.
-Proof-of-work is essentially one-CPU-one-vote.
-The majority decision is represented by the longest chain, which has the greatest proof-of-work effort invested in it.
-If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains.
-To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes.
-We will show later that the probability of a slower attacker catching up diminishes exponentially as subsequent blocks are added.
+La prueba de trabajo también soluciona el problema de determinar la representación en la toma de decisiones por la mayoría. Si la mayoría se basara en una dirección IP - un voto, podría corromperse por cualquiera capaz de asignarse muchas IPs.
+La prueba de trabajo es básicamente un CPU - un voto. La decisión mayoritaria se representa con la cadena más larga que a su vez tiene la mayor prueba de trabajo aplicada. Si una mayoría de poder CPU es controlada por nodos honestos, la cadena honesta va a crecer más rápidamente y va a sobrepasar cualquier cadena rival.
+Para modificar un bloque previo, un atacante tendría que rehacer la prueba de trabajo del bloque y de los bloques posteriores y luego alcanzar y superar el trabajo de los nodos honestos.
+Mostraremos más adelante que la probabilidad de que un atacante más lento  se ponga a la par disminuye exponencialmente a medida que se agregan bloques adicionales.
 
-To compensate for increasing hardware speed and varying interest in running nodes over time, the proof-of-work difficulty is determined by a moving average targeting an average number of blocks per hour.
-If they're generated too fast, the difficulty increases.
+Para compensar el incremento de la velocidad del hardware y el interés variable de ejecutar nodos a lo largo del tiempo, la dificultad de la prueba de trabajo se determina por un promedio variable
+que apunta a un número promedio de bloques por hora. Si se generan muy rápido, la dificultad se incrementa.
 
 ## 5. La Red
 
