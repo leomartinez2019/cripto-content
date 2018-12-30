@@ -17,7 +17,7 @@ mathjax: true
 </div>
 
 <div style="font-size: 90%; text-align: justify; width: 80%; margin: auto;">
-<b>Abstract</b>. Una versión de dinero electrónico basada totalmente en la cooperación entre pares, permitiría que los pagos en linea se
+<b>Resumen</b>. Una versión de dinero electrónico basada totalmente en la cooperación entre pares, permitiría que los pagos en linea se
 envíen directamente de un par a otro sin pasar por una institución financiera.
 Las firmas digitales representan parte de la solución, pero los beneficios principales
 se pierden si se require una tercera persona para evitar el doble gasto. Proponemos una solución
@@ -91,39 +91,29 @@ que apunta a un número promedio de bloques por hora. Si se generan muy rápido,
 
 ## 5. La Red
 
-The steps to run the network are as follows:
+Los pasos para iniciar la red son los siguientes:
 
-1. New transactions are broadcast to all nodes.
-2. Each node collects new transactions into a block.
-3. Each node works on finding a difficult proof-of-work for its block.
-4. When a node finds a proof-of-work, it broadcasts the block to all nodes.
-5. Nodes accept the block only if all transactions in it are valid and not already spent.
-6. Nodes express their acceptance of the block by working on creating the next block in the chain, using the hash of the accepted block as the previous hash.
+1. Se transmiten las nuevas transacciones a todos los nodos
+2. Cada nodo alamacena las nuevas transacciones en un bloque.
+3. Cada nodo trabaja en la búsqueda de una prueba de trabajo difícil para su bloque.
+4. Cuando un nodo halla una prueba de trabajo, transmite el bloque a todos los nodos.
+5. Los nodos aceptan el bloque sólo si todas las transacciones en él son válidas o no han sido gastadas.
+6. Los nodos expresan su asentimiento del bloque comenzando a trabajar en la creación del siguiente bloque en la cadena, usando el hash del bloque aceptado como el hash previo.
 
-Nodes always consider the longest chain to be the correct one and will keep working on extending it.
-If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or the other first.
-In that case, they work on the first one they received, but save the other branch in case it becomes longer.
-The tie will be broken when the next proof-of-work is found and one branch becomes longer; the nodes that were working on the other branch will then switch to the longer one.
 
-New transaction broadcasts do not necessarily need to reach all nodes.
-As long as they reach many nodes, they will get into a block before long.
-Block broadcasts are also tolerant of dropped messages.
-If a node does not receive a block, it will request it when it receives the next block and realizes it missed one.
+Los nodos siempren asumen que la cadena más larga es la correcta y se van a segurir trabajando para extenderlo.
+Si dos nodos transmiten diferentes versiones de bloque siguiente simultáneamente, algunos nodos pueden recibir una u otra primero. En ese caso, ellos trabajan en la primera versión que recibieron, pero guardan la otra rama
+en el caso de que se convierta en la más larga. El empate se resuelve cuando se encuentre la siguiente prueba de trabajo y una rama sea más larga; los nodos que estaban trabajando en la otra rama ahora se pasan a la más larga.
+
+Los nuevas transmisiones de transacciones no tienen que necesariamente llegar a todos los nodos. Siempre que alcancen muchos nodos ellos van a ser incluidos en un bloque tarde o temprano. Las transmisiones de los bloques también son tolerantes de los mensajes no recibidos. Si un nodo no recibe un bloque, lo va a solicitar cuando reciba el siguiente bloque y se de cuenta que le faltaba uno.
 
 ## 6. Los Incentivos
 
-By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block.
-This adds an incentive for nodes to support the network, and provides a way to initially distribute coins into circulation, since there is no central authority to issue them.
-The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation.
-In our case, it is CPU time and electricity that is expended.
+Por convención, la primera transacción es una transacción especial que genera una moneda que le pertenece al creador del bloque. Esto crea un incentivo para que los nodos respalden la red y establece una manera de poner monedas inicialmente en circulación ya que no hay una autoridad central que las emita.
+La adición continua de una cantidad constante de monedas es análogo a los mineros de oro que gastan recursos para poner el oro en circulación. En nuestro caso esl el tiempo de CPU y la electricidad lo que se gasta.
 
-The incentive can also be funded with transaction fees.
-If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction.
-Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely inflation free.
-
-The incentive may help encourage nodes to stay honest.
-If a greedy attacker is able to assemble more CPU power than all the honest nodes, he would have to choose between using it to defraud people by stealing back his payments, or using it to generate new coins.
-He ought to find it more profitable to play by the rules, such rules that favour him with more new coins than everyone else combined, than to undermine the system and the validity of his own wealth.
+El incentivo también pude ser financiado a través de comisiones de transacción. Si el valor de salida de una transacción es menor que su valor de entrada, la diferencia es una comisión de transacción que se agrega a l valor de incentivo del bloque que contiene la transacción.
+Una vez que un número prederminado de monedas han entrado en circulación, el sistema de incentivos puede entrar en una etapa de transición basado en comisiones de transacción siendo completamente libre de inflación.  
 
 ## 7. Reducción de Espacio de Memoria
 
