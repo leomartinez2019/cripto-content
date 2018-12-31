@@ -115,104 +115,95 @@ La adición continua de una cantidad constante de monedas es análogo a los mine
 El incentivo también pude ser financiado a través de comisiones de transacción. Si el valor de salida de una transacción es menor que su valor de entrada, la diferencia es una comisión de transacción que se agrega a l valor de incentivo del bloque que contiene la transacción.
 Una vez que un número prederminado de monedas han entrado en circulación, el sistema de incentivos puede entrar en una etapa de transición basado en comisiones de transacción siendo completamente libre de inflación.  
 
+El incentivo puede ayudar a estimular a los nodos para que permanezcan honestos. Si un atacante codicioso es capaz de juntar más poder de CPU que todo el resto
+de los nodos, le tocará escoger entre usar este poder para defraudar a la gente robándole sus pagos o usar este poder para generar nuevas monedas. Él debe econtrar
+más provechoso seguir las reglas que lo favorecen con más nuevas monedas que todos juntos, que subvertir el sistema y la validez de su propia fortuna.
+
 ## 7. Reducción de Espacio de Memoria
 
-Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space.
-To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.
-Old blocks can then be compacted by stubbing off branches of the tree.
-The interior hashes do not need to be stored.
+Una vez la más reciente transacción en un moneda se engrana bajo suficientes bloques, las transacciones completadas anteriormente se pueden descartar para ahorrar espacio de disco.
+Para facilitar esto sin romper el hash del bloque, se hace un has las transacciones en un Árbol de Merkle [7][2][5], incluyendo sólo la raíz en el hash del bloque.
+Los bloques anteriores pueden luego ser compactados podando las ramas del árbol. Los hash interiores no tienen que ser almacenados.
 
 ![](/images/reclaiming-disk-space.svg)
 
-A block header with no transactions would be about 80 bytes.
-If we suppose blocks are generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year.
-With computer systems typically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of 1.2GB per year, storage should not be a problem even if the block headers must be kept in memory.
+Una cabecera de bloque sin transacciones tendría alrededor de 80 butes. Si suponemos que los bloques se generan cada 10 minutos, 80 bytes * 6 * 24 * 365 = 4.2MB por año.
+Con sistemas de computación que se venden con 2GB de RAM en 2008 y la ley de Moore que predice un crecimiento actual de 1.2GB por año, el almacenamiento no debería ser un problema incluso si las cabeceras de los bloques deben permanecer en memoria.
 
 ## 8. Verificación Simplificada de Pago
 
-It is possible to verify payments without running a full network node.
-A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in.
-He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
+Es posible verificar los pagos sin tener que correr una nodo de red completo. Un usuario solo necesita mantener una copia de las cabeceras del bloque de la cadena de prueba de trabajo más larga, que puede obtener
+consultando los nodos de la red hasta convencerse de tener la cadena más extensa y obtener la rama de Merkle que relaciona la transacción con el bloque donde está registrada cronológicamente. No puede revisar la transacción él mismo sino que al relacionarla con un lugar en la cadena pude ver que que un nodo de la red la ha aceptado y los bloques agregadoe posteriormente sólo confirman esta aceptación por parte de la red.
 
 ![](/images/simplified-payment-verification.svg)
 
-As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker.
-While network nodes can verify transactions for themselves, the simplified method can be fooled by an attacker's fabricated transactions for as long as the attacker can continue to overpower the network.
-One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency.
-Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
+La verificación como tal es confiable siempre y cuando los nodos honestos controlen la red pero es más vulnerable si la red es sobrepasada por un atacante.
+Si bien los nodos de red pueden verificar las transacciones por si solos, el método simplificado puede ser engañado por transacciones falsas de un atacante mientras el atacante continue dominando la red. Una estrategia para protegerse de esto sería aceptar alertas de los nodos cuando detecten un bloque inválido anunciando al software del usuario para que descargue el bloque completo y las transacciones alertadas para confirmar la incosistencia.
+Los negocios que reciben pagos frecuentes probablemente querrán correr sus propios nodos para una mayor seguridad independiente y una rápida verificación.
 
 ## 9. Combinando y Dividiendo el Valor
 
-Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer.
-To allow value to be split and combined, transactions contain multiple inputs and outputs.
-Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
+Aunque sería posible manejar monedas en forma individual, sería insostenible hacer una transacción separada por cada centavo en una transferencia. Para permitir la división y combinación del valor, las transacciones contienen múltiples entradas y salidas.
+Normalmente habrá o bien una sola entrada de una transacción previa grande o múltiples entradas que combinan montos más pequeños y además como mucho dos salidas: una para el pago y una devolviendo el cambio, si lo hay, de nuevo al remitente.
 
 ![](/images/combining-splitting-value.svg)
 
-It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here.
-There is never the need to extract a complete standalone copy of a transaction's history.
+Debe tenerse en cuenta que la expansión, es decir, donde una transacción dpende de varias transacciones y éstas dependen de muchas más, no es un problema aquí.
+No existe nunca la necesidad de extraer la copia completa del historial de una transacción individual. 
 
 ## 10. Privacidad
 
-The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party.
-The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.
-The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone.
-This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
+El modelo tradicional de banca alcanza un nivel de privacidad al limitar el acceso a la información a las partes involucradas y al tercero fiable.
+La necesidad de anunciar todas las tranzacciones al público imposibilita este método, pero la privacidad aún se puede mantener bloquenado el flujo de información en otro lugar: al mantener las claves privadas anónimas.
+El público puede ver que alguien envia una cantidad a alguien más pero sin relacionar la transacción a nadie.
+Esto es similar al nivel de información divulgado por las bolsas de valores donde se anuncia la hora y el tamaño de los movimientos individuales, el "registro",  pero sin decir quienes fueron las partes.
 
 ![](/images/privacy.svg)
 
-As an additional firewall, a new key pair should be used for each transaction to keep them from being linked to a common owner.
-Some linking is still unavoidable with multi-input transactions, which necessarily reveal that their inputs were owned by the same owner.
-The risk is that if the owner of a key is revealed, linking could reveal other transactions that belonged to the same owner.
+Como cortafuegos adicional, un nuevo par de claves debe usarse para cada transacción para evitar que sean relacionadas a un dueño común. Alguna forma de vinculación es todavía inevitable con las transacciones de entradas múltiples que necesariamente revelan que las entradas eran poseidas por el mismo dueño. El riesgo es que si el dueño de una clave es revelado, el relacionamiento puede revelar otras transacciones que pertenecieron al mismo dueño.
 
 ## 11. Cálculos
 
-We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain.
-Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker.
-Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them.
-An attacker can only try to change one of his own transactions to take back money he recently spent.
+Consideramos el escenario de un atacante tratando de generar una cadena alterna más rápido que la cadena honesta. Incluso si esto se logra alcanzar, no implica que el sistema sea propenso a cambios arbitrarios tales como la creación de valor a partir de nada o la poseción de dinero que nunca perteneció al atacante. Los nodos no van a aceptar una transacción inválida como pago y los nodos honestos nunca aceptarán un bloque que los contiene.
+Un atacante solo puede tratar de cambiar una de sus propias transacciones para recuperar dinero que gastó antes.
 
-The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk.
-The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.
+La competencia entre la cadena honesta y la cadena del atacante se puede caracterizar como un Camino Aleatorio Binomial. El evento éxito es que la cadena honesta se extienda un bloque aumentando su ventaja por +1, y el evento fracaso es la cadena del atacante extendiéndose un bloque reduciendo la brecha por -1.
 
-The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem.
-Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven.
-We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]:
+La probabilidad de que un atacante se ponga al día a partir de un deficit dado es análogo al problema de la Ruina del Apostador.
+Suponga que un apostador con crédito ilimitado comienza con un deficit y juega potencialmente un número infinito de intentos para tratar de alcanzar una paridad. podemos calcular la probabilidad de que alguna vez alcance la paridad
+o que el atacante alcance lacadena honesta de la siguiente forma:
 
 $$
 \begin{eqnarray*}
-                \large p &=& \text{ probability an honest node finds the next block}\\
-                \large q &=& \text{ probability the attacker finds the next block}\\
-                \large q_z &=& \text{ probability the attacker will ever catch up from $z$ blocks behind}
+                \large p &=& \text{ probabilidad de que un nodo honesto encuentre el próximo bloque}\\
+                \large q &=& \text{ probabilidad de que el atacante encuentre el próximo bloque}\\
+                \large q_z &=& \text{ probabilidad de que el atacante alguna vez alcance a los demás a partir de $z$ bloques atrás}
                 \end{eqnarray*}
 $$
 
 $$
 \large q_z = \begin{Bmatrix}
-				1 & \textit{if}\; p \leq q\\
-				(q/p)^z & \textit{if}\; p > q
+				1 & \textit{si}\; p \leq q\\
+				(q/p)^z & \textit{si}\; p > q
 				\end{Bmatrix}
 $$
 
-Given our assumption that $p \gt q$, the probability drops exponentially as the number of blocks the attacker has to catch up with increases.
-With the odds against him, if he doesn't make a lucky lunge forward early on, his chances become vanishingly small as he falls further behind.
+Dada la suposición de que  $$p \gt q$$, la probabilidad disminuye exponencialmente a medida que el número de bloques que el atacante debe alcanzar aumenta.
 
-We now consider how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction.
-We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed.
-The receiver will be alerted when that happens, but the sender hopes it will be too late.
+Ahora consideramos cuanto tiempo el destinatario de una nueva transacción debe esperar antes estar lo suficientemente seguro que el remitente no pueda cambiar la transacción. Asumimos que el remitente es un atacante
+que quiere hacer que el destinatario crea por un tiempo que le pagó, luego hacer el cambio para pagarse a sí mismo al cabo de un tiempo. El destinatario será alertado cuando eso pase, pero el remitente va a tener la esperanza de que sea demasiado tarde.
 
-The receiver generates a new key pair and gives the public key to the sender shortly before signing.
-This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment.
-Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction.
+El destinatario genera un nuevo par de claves y da la clave pública al remitente justo antes de firmar. Esto previene que el remitente prepare una cadena de bloques con anticipación trabajando en eso continuamente hasta que es lo suficientemente afortunado para avanzar lo suficiente y realizar la transacción en ese momento.
+Una vez la transacción es enviada, el remitente deshonesto comienza a trabajar en secreto en una cadena paralela que contiene una versión alterna de la transacción.
 
-The recipient waits until the transaction has been added to a block and $$ z $$ blocks have been linked after it.
-He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:
+El destinatario espera hasta que la transacción ha sido añadida a un bloque y $$ z $$ bloques han sido enlazados luego de ese. Él no sabe la cantidad exacta de progreso que el atacante ha logrado, pero asumiendo que los nodos honestos invirtieron el promedio esperado de tiempo
+por bloque, el progreso potencial del atacante será una distribución de Poisson con el valor esperado:
 
 $$
 \large \lambda = z \frac qp
 $$
 
-To get the probability the attacker could still catch up now, we multiply the Poisson density for each amount of progress he could have made by the probability he could catch up from that point:
+Para obtener la probabilidad de un que un atacante pueda ponerse a la par de los demás, multiplicamos la densidad de Poisson para cada nivel de progreso que haya podido alcanzar por la probabilidad de que pueda ponerse al día desde ese punto:
 
 $$
 \large \sum_{k=0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} \cdot
@@ -222,24 +213,24 @@ $$
 				\end{Bmatrix}
 $$
 
-Rearranging to avoid summing the infinite tail of the distribution...
+Reacomodando para evitar sumar la cola infinita de la distribución...
 
 $$
 \large 1 - \sum_{k=0}^{z} \frac{\lambda^k e^{-\lambda}}{k!}
 				\left ( 1-(q/p)^{(z-k)} \right )
 $$
 
-Converting to C code...
+Convirtiendo a código C...
 
 {% highlight c %}
 #include
-double AttackerSuccessProbability(double q, int z)
+double ProbabilidadDeExitoDeUnAtacante(double q, int z)
 {
 	double p = 1.0 - q;
 	double lambda = z * (q / p);
 	double sum = 1.0;
 	int i, k;
-v	for (k = 0; k <= z; k++)
+	for (k = 0; k <= z; k++)
 	{
 		double poisson = exp(-lambda);
 		for (i = 1; i <= k; i++)
@@ -250,7 +241,7 @@ v	for (k = 0; k <= z; k++)
 }
 {% endhighlight %}
 
-Running some results, we can see the probability drop off exponentially with $$ z $$.
+Al ejecutar algunos resultados podemos ver como la probabilidad disminuye exponencialmente con $$ z $$.
 
 {% highlight c %}
 q=0.1
@@ -280,7 +271,7 @@ z=45   P=0.0000024
 z=50   P=0.0000006
 {% endhighlight %}
 
-Solving for P less than 0.1%...
+Resolviendo para P menor que 0.1%...
 
 {% highlight c %}
 P < 0.001
@@ -296,12 +287,19 @@ q=0.45   z=340
 
 ## 12. Conclusión
 
-We have proposed a system for electronic transactions without relying on trust.
-We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending.
-To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power.
-The network is robust in its unstructured simplicity.
-Nodes work all at once with little coordination.
-They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis.
-Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone.
-They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them.
-Any needed rules and incentives can be enforced with this consensus mechanism.
+Hemos propuesto un sistema de transacciones electrónicas que no dependen de la confianza. Comenzamos con el marco usual de monedas hechas a partir de firmas digitales que brindan un control fuerte de propiedad pero es incompleto sin uns forma de prevenir el doble gasto.
+Para resolver esto propusimos una red entre pares que usa la prueba de trabajo para guardar un historial público de transacciones que rápidamente terminan siendo computacionalmente imprácticas de cambiar por parte de un atacante si los nodos honestos controlan la mayoría de poder de CPU. La red es robusta en su simplicidad no estructurada.
+Los nodos trabajan todos a la vez con poca coordinación. No necesitan ser identificados ya que los mensajes no son enrutados a un lugar particular y solo deben ser llevados con base en el mejor esfuerzo. Los nodos pueden abandonar y retomar la red a voluntad aceptando la cadena de prueba de trabajo como prueba de lo que pasó cuando estaban ausentes. Ellos votan con su poder de CPU
+expresando su consentimiento de los bloques válidos al ponerse a trabajar en extenderlos y rechazando los bloques inválidos al rechazar completarlos. Cualquier regla o incentivo puede se puede hacer cumplir con este mecanismo de consenso.
+
+## Referencias
+
+[1] W. Dai, "b-money," http://www.weidai.com/bmoney.txt, 1998.  
+[2] H. Massias, X.S. Avila, and J.-J. Quisquater, "Design of a secure timestamping service with minimal trust requirements," In *20th Symposium on Information Theory in the Benelux*, May 1999.  
+[3] S. Haber, W.S. Stornetta, "How to time-stamp a digital document," In *Journal of Cryptology*, vol 3, no 2, pages 99-111, 1991.  
+[4] D. Bayer, S. Haber, W.S. Stornetta, "Improving the efficiency and reliability of digital time-stamping," In *Sequences II: Methods in Communication, Security and Computer Science*, pages 329-334, 1993.  
+[5] S. Haber, W.S. Stornetta, "Secure names for bit-strings," In *Proceedings of the 4th ACM Conference on Computer and Communications Security*, pages 28-35, April 1997.  
+[6] A. Back, "Hashcash - a denial of service counter-measure,"  
+http://www.hashcash.org/papers/hashcash.pdf, 2002.  
+[7] R.C. Merkle, "Protocols for public key cryptosystems," In *Proc. 1980 Symposium on Security and Privacy*, IEEE Computer Society, pages 122-133, April 1980.  
+[8] W. Feller, "An introduction to probability theory and its applications," 1957.
