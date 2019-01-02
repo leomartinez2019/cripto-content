@@ -5,9 +5,94 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 01 Jan 2019 17:52:47 -0500</pubDate>
-    <lastBuildDate>Tue, 01 Jan 2019 17:52:47 -0500</lastBuildDate>
+    <pubDate>Wed, 02 Jan 2019 17:15:01 -0500</pubDate>
+    <lastBuildDate>Wed, 02 Jan 2019 17:15:01 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Las funciones hash criptográficas</title>
+        <description>&lt;p&gt;Las funciones hash tienen tres atributos principales:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;toman una texto como entrada&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;producen una salida de tamaño fijo (256 bits)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;son computadas de forma eficiente&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A su vez tienen tres propiedades relacionadas con la seguridad:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;son libres de colisiones&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;funcionan para ocultar&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;son difíciles de desencriptar&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;libres-de-colisiones&quot;&gt;1. Libres de colisiones&lt;/h3&gt;
+
+&lt;p&gt;No se pueden encontrar &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; e &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt; tales que&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;x!=y&lt;/script&gt; y 
+&lt;script type=&quot;math/tex&quot;&gt;H(x)=H(x)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Las colisiones sí existen pero son muy difíciles de encontrar. Para hallar una habría que
+probar 2^130 entradas escogidas al azar. En ese caso hay un 99.8% de posibilidades de que dos de ellas colisionen.
+El problema aquí es que tomaría tanto tiempo y poder de cómputo que se considera en la práctiva inviable.&lt;/p&gt;
+
+&lt;p&gt;Si asumimos que la función hash es libre de colisiones, entonces la podemos usar como un compresor de mensajes.
+Si sabemos que &lt;script type=&quot;math/tex&quot;&gt;H(x)=H(y)&lt;/script&gt;, entonces es seguro asumir que &lt;script type=&quot;math/tex&quot;&gt;x = y&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Un ejemplo de aplicación de esta idea sería la comprobación de que dos archivos son iguales. Si los archivos son muy grandes podría ser difícil comprobar si son iguales.
+Sin embargo, si se aplica un hash a cada archivo y se obtiene el mismo valor, podemos asegurar que los dos archivos son iguales.&lt;/p&gt;
+
+&lt;h3 id=&quot;ocultamiento&quot;&gt;2. Ocultamiento&lt;/h3&gt;
+
+&lt;p&gt;Queremos obtener algo así:&lt;/p&gt;
+
+&lt;p&gt;Dado &lt;script type=&quot;math/tex&quot;&gt;H(x)&lt;/script&gt;, es inviable encontrar &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Para que esta propiedad se cumpla, necesitamos lo siguiente:&lt;/p&gt;
+
+&lt;p&gt;Si r se escoge de una distribución de probabilidad que tiene alta entropía de Renyi, entonces dado &lt;script type=&quot;math/tex&quot;&gt;H(r|x)&lt;/script&gt;, es inviable encontrar &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt;.
+La alta entropía de Renyi indica que la distribución está muy dispersa, de modo que ningún valor en particular puede ser escogido con más que una probabilidad despreciable.&lt;/p&gt;
+
+&lt;h3 id=&quot;dificultad-para-descencriptar&quot;&gt;3. Dificultad para descencriptar&lt;/h3&gt;
+
+&lt;p&gt;Para cada posible valor de salida &lt;script type=&quot;math/tex&quot;&gt;y&lt;/script&gt;, si &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt; se escoge de una distribución con alta entropía de Renyi, entonces es inviable encontrar &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; tal que 
+&lt;script type=&quot;math/tex&quot;&gt;H(k|x)=y&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;punteros-hash&quot;&gt;Punteros hash&lt;/h2&gt;
+
+&lt;p&gt;Un puntero hash es donde se almacena cierta información además del hash de esa información. Si tenemos un puntero hash, podemos
+indagar por la información y verificar que no se ha alterado.&lt;/p&gt;
+
+&lt;p&gt;La idea es crear estructuras de datos con estos punteros, como listas enlazadasy y árboles binarios.&lt;/p&gt;
+
+&lt;p&gt;Un ejemplo es una lista enlazada:&lt;/p&gt;
+
+&lt;p&gt;Si un atacante cambia los datos de un bloque, el hash de ese bloque cambia. Esta inconsistencia es fácilmente detectable con el hash principal. Un atacante incuso puede alterar todos los bloques pero no el hash raíz que tenemos almacenado.&lt;/p&gt;
+
+&lt;p&gt;otra estructura de datos que se puede crear con punteros es un árbol binario también llamado árbol de Merkle.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 02 Jan 2019 00:00:00 -0500</pubDate>
+        <link>https://leonardo384.github.io/bitcoin/2019/01/02/la-funcion-hash-criptografica/</link>
+        <guid isPermaLink="true">https://leonardo384.github.io/bitcoin/2019/01/02/la-funcion-hash-criptografica/</guid>
+        
+        
+        <category>bitcoin</category>
+        
+      </item>
     
       <item>
         <title>Documentación Técnica de Bitcoin</title>
@@ -297,8 +382,8 @@ http://www.hashcash.org/papers/hashcash.pdf, 2002.&lt;br /&gt;
 [8] W. Feller, “An introduction to probability theory and its applications,” 1957.&lt;/p&gt;
 </description>
         <pubDate>Thu, 27 Dec 2018 11:56:53 -0500</pubDate>
-        <link>https://leonardo384.github.io/bitcoin/2018/12/27/documentacion-tecnica-de-bitcoin.html</link>
-        <guid isPermaLink="true">https://leonardo384.github.io/bitcoin/2018/12/27/documentacion-tecnica-de-bitcoin.html</guid>
+        <link>https://leonardo384.github.io/bitcoin/2018/12/27/documentacion-tecnica-de-bitcoin/</link>
+        <guid isPermaLink="true">https://leonardo384.github.io/bitcoin/2018/12/27/documentacion-tecnica-de-bitcoin/</guid>
         
         
         <category>bitcoin</category>

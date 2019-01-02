@@ -6,6 +6,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://leonardo384.github.io" # the base hostname & protocol for your site
 twitter_username: Pythonista100
 github_username:  leonardo384
+permalink: pretty
+paginate: 5
 
 # Build settings
 markdown: kramdown

@@ -6,11 +6,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Bitcoin y Criptomonedas</title>
-  <meta name="description" content="Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero">
+  <title>Las funciones hash criptográficas</title>
+  <meta name="description" content="Las funciones hash tienen tres atributos principales:">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://leonardo384.github.io/">
+  <link rel="canonical" href="https://leonardo384.github.io/bitcoin/2019/01/02/la-funcion-hash-criptografica/">
+  
+	<!--
+  	<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+	<script type="text/x-mathjax-config">
+    	MathJax.Hub.Config({
+   	 	TeX: { equationNumbers: { autoNumber: "AMS" } }
+    	});
+	</script>
+	-->
+	<script type="text/javascript" async
+  	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML">
+	</script>
   
   <link rel="alternate" type="application/rss+xml" title="Bitcoin y Criptomonedas" href="https://leonardo384.github.io/feed.xml">
 </head>
@@ -63,31 +75,91 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Las funciones hash criptográficas</h1>
+    <p class="post-meta"><time datetime="2019-01-02T00:00:00-05:00" itemprop="datePublished">Jan 2, 2019</time></p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jan 2, 2019</span>
+  <div class="post-content" itemprop="articleBody">
+    <p>Las funciones hash tienen tres atributos principales:</p>
 
-        <h2>
-          <a class="post-link" href="/bitcoin/2019/01/02/la-funcion-hash-criptografica/">Las funciones hash criptográficas</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Dec 27, 2018</span>
+<ul>
+  <li>
+    <p>toman una texto como entrada</p>
+  </li>
+  <li>
+    <p>producen una salida de tamaño fijo (256 bits)</p>
+  </li>
+  <li>
+    <p>son computadas de forma eficiente</p>
+  </li>
+</ul>
 
-        <h2>
-          <a class="post-link" href="/bitcoin/2018/12/27/documentacion-tecnica-de-bitcoin/">Documentación Técnica de Bitcoin</a>
-        </h2>
-      </li>
-    
-  </ul>
+<p>A su vez tienen tres propiedades relacionadas con la seguridad:</p>
 
-</div>
+<ul>
+  <li>
+    <p>son libres de colisiones</p>
+  </li>
+  <li>
+    <p>funcionan para ocultar</p>
+  </li>
+  <li>
+    <p>son difíciles de desencriptar</p>
+  </li>
+</ul>
+
+<h3 id="libres-de-colisiones">1. Libres de colisiones</h3>
+
+<p>No se pueden encontrar <script type="math/tex">x</script> e <script type="math/tex">y</script> tales que</p>
+
+<p><script type="math/tex">x!=y</script> y 
+<script type="math/tex">H(x)=H(x)</script></p>
+
+<p>Las colisiones sí existen pero son muy difíciles de encontrar. Para hallar una habría que
+probar 2^130 entradas escogidas al azar. En ese caso hay un 99.8% de posibilidades de que dos de ellas colisionen.
+El problema aquí es que tomaría tanto tiempo y poder de cómputo que se considera en la práctiva inviable.</p>
+
+<p>Si asumimos que la función hash es libre de colisiones, entonces la podemos usar como un compresor de mensajes.
+Si sabemos que <script type="math/tex">H(x)=H(y)</script>, entonces es seguro asumir que <script type="math/tex">x = y</script>.</p>
+
+<p>Un ejemplo de aplicación de esta idea sería la comprobación de que dos archivos son iguales. Si los archivos son muy grandes podría ser difícil comprobar si son iguales.
+Sin embargo, si se aplica un hash a cada archivo y se obtiene el mismo valor, podemos asegurar que los dos archivos son iguales.</p>
+
+<h3 id="ocultamiento">2. Ocultamiento</h3>
+
+<p>Queremos obtener algo así:</p>
+
+<p>Dado <script type="math/tex">H(x)</script>, es inviable encontrar <script type="math/tex">x</script></p>
+
+<p>Para que esta propiedad se cumpla, necesitamos lo siguiente:</p>
+
+<p>Si r se escoge de una distribución de probabilidad que tiene alta entropía de Renyi, entonces dado <script type="math/tex">H(r|x)</script>, es inviable encontrar <script type="math/tex">x</script>.
+La alta entropía de Renyi indica que la distribución está muy dispersa, de modo que ningún valor en particular puede ser escogido con más que una probabilidad despreciable.</p>
+
+<h3 id="dificultad-para-descencriptar">3. Dificultad para descencriptar</h3>
+
+<p>Para cada posible valor de salida <script type="math/tex">y</script>, si <script type="math/tex">k</script> se escoge de una distribución con alta entropía de Renyi, entonces es inviable encontrar <script type="math/tex">x</script> tal que 
+<script type="math/tex">H(k|x)=y</script>.</p>
+
+<h2 id="punteros-hash">Punteros hash</h2>
+
+<p>Un puntero hash es donde se almacena cierta información además del hash de esa información. Si tenemos un puntero hash, podemos
+indagar por la información y verificar que no se ha alterado.</p>
+
+<p>La idea es crear estructuras de datos con estos punteros, como listas enlazadasy y árboles binarios.</p>
+
+<p>Un ejemplo es una lista enlazada:</p>
+
+<p>Si un atacante cambia los datos de un bloque, el hash de ese bloque cambia. Esta inconsistencia es fácilmente detectable con el hash principal. Un atacante incuso puede alterar todos los bloques pero no el hash raíz que tenemos almacenado.</p>
+
+<p>otra estructura de datos que se puede crear con punteros es un árbol binario también llamado árbol de Merkle.</p>
+
+  </div>
+
+</article>
 
       </div>
     </div>
