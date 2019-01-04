@@ -8,6 +8,12 @@ dl, dd, ol, ul, figure {
   padding: 0; }
 
 /**
+ * Mis estilos:
+ */
+.marco-de-foto {
+  border: 1px grey solid; }
+
+/**
  * Basic styling
  */
 body {
