@@ -5,7 +5,8 @@ categories: bitcoin
 mathjax: true
 ---
 
-(Basado en el curso "Bitcoin y tecnología de criptomonedas" de Princeton. Youtube: [Princeton Bitcoin Course](https://www.youtube.com/channel/UCNcSSleedtfyDuhBvOQzFzQ/videos))
+Basado en el curso en Youtube "Bitcoin y Tecnología de Criptomonedas" de [Princeton](https://www.youtube.com/channel/UCNcSSleedtfyDuhBvOQzFzQ/videos),
+y en el libro "Bitcoin and Cryptocurrency Technologies" [http://bitcoinbook.cs.princeton.edu](http://bitcoinbook.cs.princeton.edu)
 
 Una función hash convierte cadenas de texto arbitrarias en una salida de longitud fija de una manera determinística, pública y aleatoria.
 Las funciones hash tienen tres atributos principales:

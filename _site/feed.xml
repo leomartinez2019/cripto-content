@@ -5,13 +5,60 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 04 Jan 2019 09:39:17 -0500</pubDate>
-    <lastBuildDate>Fri, 04 Jan 2019 09:39:17 -0500</lastBuildDate>
+    <pubDate>Sat, 05 Jan 2019 16:59:45 -0500</pubDate>
+    <lastBuildDate>Sat, 05 Jan 2019 16:59:45 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
+        <title>Documentación Técnica de Ethereum</title>
+        <description>&lt;p&gt;La intención de Ethereum es crear un protocolo alternativo para desarrollar aplicaciones descentralizadas
+introduciendo un conjunto nuevo de aspectos que creemos serán de gran uso en una clase amplia de aplicaciones descentralizadas, sobretodo en situaciones
+donde son importantes el tiempo de desarrollo, la seguridad para aplicaciones pequeñas y poco usadas,
+y la capacidad de interacción eficiente de diferentes aplicaciones. Ethereum logra esto construyendo lo que esencialmente es la mayor capa fundamental abstracta: un blockchain con un lenguaje Turing completo incorporado que le permite a cualquiera escribir contratos inteligentes y aplicaciones
+descentralizadas donde se pueden crear reglas propias y arbitrarias de propiedad, formatos de transacción y funciones de transición de estado.
+Se puede escribir una versión esencial de Namecoin en solo dos líneas de código y otros protocolos tales como divisas y sistemas de reputación se pueden escribir con menos de veinte líneas.
+También se pueden crear sobre la plataforma contratos inteligentes que son especies de  “cajas” criptográficas que contienen un valor y lo revelan solo si se cumplen ciertas condiciones.
+Éstas tienen mucho más poder que las que ofrece el código de Bitcoin debido a las capacidades agregadas de la completitud de Turing, el conocimiento del valor y del blockchain y el estado.&lt;/p&gt;
+
+&lt;h3 id=&quot;filosofa&quot;&gt;Filosofía&lt;/h3&gt;
+
+&lt;p&gt;El diseño detrás de Ethereum debe seguir los siguientes principios:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Simplicidad&lt;/strong&gt;: el protocolo Ethereum debe ser tan simple como se pueda, incluso sacrificando el amacenamiento de datos y la eficiencia de tiempo. Un programador promedio
+debería ser capaz de seguir e implementar una especificación completa, dándose cuenta del potencial sin precedentes de democratización que las criptomonedas traen y también para extender la visión
+de Ethereum como un protocolo abierto a todos. Ninguna optimización que agregue complejidad se debería incluir a menos que esa optimización brinde beneficios considerables.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Universalidad&lt;/strong&gt;: una parte fundamental de la filosofía de diseño es que Ethereum no tiene “características”.
+En vez de eso, Ethereum trae un lenguaje interno de codificación Turing completo que un programador pude usar
+para crear cualquier contrato inteligente o tipo de transacción que puede ser definido matemáticamente.
+Quiere crear su propio producto financiero? Con Ethereum se puede. Quiere crear su propia moneda? Desarróllelo como un contrato en Ethereum. Quiere montar un script de ejecución constante o Skynet completo?
+Podría necesitar tener varios miles de contratos interconectados y asegurarse de llenarlos de información, pero también se puede en Ethereum.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Modularidad&lt;/strong&gt;: las partes del protocolo Ethereum deben ser diseñados para ser tan modulares y separables como sea posible.
+Durante la fase de desarrollo, nuestro objetivo es crear un programa en donde si se necesita hacer una pequeña modificación del protocolo en un lugar, el stack de la aplicación
+seguiría funcionando sin más modificaciones. Las innovaciones como Ethash, los árboles modificados de Patricia y RPL
+deberían y son implementados como bibliotecas separadas y completas. Esto es así de tal modo que aunque se usen en Ethereum, incluso si Ethereum no necesita ciertas características,
+éstas se pueden usar en otros protocolos. El desarrollo en Ethereum debería ser para beneficiar lo más posible al ecosistema de criptomonedas en general, no solo a si misma.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sat, 05 Jan 2019 00:00:00 -0500</pubDate>
+        <link>https://leonardo384.github.io/criptomonedas/2019/01/05/documentacion-tecnica-de-ethereum/</link>
+        <guid isPermaLink="true">https://leonardo384.github.io/criptomonedas/2019/01/05/documentacion-tecnica-de-ethereum/</guid>
+        
+        
+        <category>criptomonedas</category>
+        
+      </item>
+    
+      <item>
         <title>Las funciones hash criptográficas</title>
-        <description>&lt;p&gt;(Basado en el curso “Bitcoin y tecnología de criptomonedas” de Princeton. Youtube: &lt;a href=&quot;https://www.youtube.com/channel/UCNcSSleedtfyDuhBvOQzFzQ/videos&quot;&gt;Princeton Bitcoin Course&lt;/a&gt;)&lt;/p&gt;
+        <description>&lt;p&gt;Basado en el curso en Youtube “Bitcoin y Tecnología de Criptomonedas” de &lt;a href=&quot;https://www.youtube.com/channel/UCNcSSleedtfyDuhBvOQzFzQ/videos&quot;&gt;Princeton&lt;/a&gt;,
+y en el libro “Bitcoin and Cryptocurrency Technologies” &lt;a href=&quot;http://bitcoinbook.cs.princeton.edu&quot;&gt;http://bitcoinbook.cs.princeton.edu&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Una función hash convierte cadenas de texto arbitrarias en una salida de longitud fija de una manera determinística, pública y aleatoria.
 Las funciones hash tienen tres atributos principales:&lt;/p&gt;
