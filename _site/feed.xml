@@ -5,20 +5,20 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Jan 2019 16:59:45 -0500</pubDate>
-    <lastBuildDate>Sat, 05 Jan 2019 16:59:45 -0500</lastBuildDate>
+    <pubDate>Sun, 06 Jan 2019 18:25:26 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Jan 2019 18:25:26 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
         <title>Documentación Técnica de Ethereum</title>
         <description>&lt;p&gt;La intención de Ethereum es crear un protocolo alternativo para desarrollar aplicaciones descentralizadas
-introduciendo un conjunto nuevo de aspectos que creemos serán de gran uso en una clase amplia de aplicaciones descentralizadas, sobretodo en situaciones
-donde son importantes el tiempo de desarrollo, la seguridad para aplicaciones pequeñas y poco usadas,
+al introducir un conjunto nuevo de aspectos que creemos serán de gran uso en una clase extensa de aplicaciones descentralizadas, sobretodo en situaciones
+donde importan el tiempo de desarrollo, la seguridad para aplicaciones pequeñas y poco usadas,
 y la capacidad de interacción eficiente de diferentes aplicaciones. Ethereum logra esto construyendo lo que esencialmente es la mayor capa fundamental abstracta: un blockchain con un lenguaje Turing completo incorporado que le permite a cualquiera escribir contratos inteligentes y aplicaciones
 descentralizadas donde se pueden crear reglas propias y arbitrarias de propiedad, formatos de transacción y funciones de transición de estado.
-Se puede escribir una versión esencial de Namecoin en solo dos líneas de código y otros protocolos tales como divisas y sistemas de reputación se pueden escribir con menos de veinte líneas.
+Se puede escribir una versión esencial de Namecoin en solo dos líneas de código y otros protocolos tales como divisas y sistemas de reputación en menos de veinte líneas.
 También se pueden crear sobre la plataforma contratos inteligentes que son especies de  “cajas” criptográficas que contienen un valor y lo revelan solo si se cumplen ciertas condiciones.
-Éstas tienen mucho más poder que las que ofrece el código de Bitcoin debido a las capacidades agregadas de la completitud de Turing, el conocimiento del valor y del blockchain y el estado.&lt;/p&gt;
+Éstas tienen mucho más poder que las que ofrece el código de Bitcoin debido a las capacidades agregadas de la completitud de Turing, el reconocimiento del valor, del blockchain y del estado.&lt;/p&gt;
 
 &lt;h3 id=&quot;filosofa&quot;&gt;Filosofía&lt;/h3&gt;
 
@@ -26,25 +26,76 @@ También se pueden crear sobre la plataforma contratos inteligentes que son espe
 
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Simplicidad&lt;/strong&gt;: el protocolo Ethereum debe ser tan simple como se pueda, incluso sacrificando el amacenamiento de datos y la eficiencia de tiempo. Un programador promedio
-debería ser capaz de seguir e implementar una especificación completa, dándose cuenta del potencial sin precedentes de democratización que las criptomonedas traen y también para extender la visión
+    &lt;p&gt;&lt;strong&gt;Simplicidad&lt;/strong&gt;: el protocolo Ethereum debe ser tan simple como sea posible, incluso sacrificando el amacenamiento de datos y la eficiencia de tiempo. Un programador promedio
+debería ser capaz de seguir e implementar una especificación completa, dándose cuenta del potencial sin precedentes de democratización que las criptomonedas traen y extendiendo la visión
 de Ethereum como un protocolo abierto a todos. Ninguna optimización que agregue complejidad se debería incluir a menos que esa optimización brinde beneficios considerables.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Universalidad&lt;/strong&gt;: una parte fundamental de la filosofía de diseño es que Ethereum no tiene “características”.
-En vez de eso, Ethereum trae un lenguaje interno de codificación Turing completo que un programador pude usar
+En vez de eso, Ethereum trae un lenguaje interno de codificación Turing completo que un programador puede usar
 para crear cualquier contrato inteligente o tipo de transacción que puede ser definido matemáticamente.
-Quiere crear su propio producto financiero? Con Ethereum se puede. Quiere crear su propia moneda? Desarróllelo como un contrato en Ethereum. Quiere montar un script de ejecución constante o Skynet completo?
+¿Quiere crear su propio producto financiero? Con Ethereum se puede. ¿Quiere crear su propia moneda? Desarróllelo como un contrato en Ethereum. ¿Quiere montar un script de ejecución constante o Skynet completo?
 Podría necesitar tener varios miles de contratos interconectados y asegurarse de llenarlos de información, pero también se puede en Ethereum.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Modularidad&lt;/strong&gt;: las partes del protocolo Ethereum deben ser diseñados para ser tan modulares y separables como sea posible.
 Durante la fase de desarrollo, nuestro objetivo es crear un programa en donde si se necesita hacer una pequeña modificación del protocolo en un lugar, el stack de la aplicación
-seguiría funcionando sin más modificaciones. Las innovaciones como Ethash, los árboles modificados de Patricia y RPL
-deberían y son implementados como bibliotecas separadas y completas. Esto es así de tal modo que aunque se usen en Ethereum, incluso si Ethereum no necesita ciertas características,
-éstas se pueden usar en otros protocolos. El desarrollo en Ethereum debería ser para beneficiar lo más posible al ecosistema de criptomonedas en general, no solo a si misma.&lt;/p&gt;
+seguirá funcionando sin más cambios. Las innovaciones como Ethash, los árboles modificados de Patricia y RLP (Recursive Length Prefix)
+deberían y son implementados como bibliotecas separadas y completas. Este es el procedimiento para que ciertas características disponibles en Ethereum se puedan transferir a otros protocolos, incluso si Ethereum no las aplica. El desarrollo en Ethereum debería ser para beneficiar lo más posible al ecosistema de criptomonedas en general y no solo a Ethereum.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Agilidad&lt;/strong&gt;: los detalles del protocolo Ethereum no son inflexibles. Aunque seremos extremadamente cuidadosos al modificar estructuras de alto nivel.
+Un ejemplo es la hoja de ruta de partición (sharding roadmap) donde se abstrae la ejecución dependiendo de la disponibilidad de datos que cumplan con el consenso.
+Los tests computacionales posteriores en el proceso de desarrollo nos pueden llevar a descubrir que ciertas modificaciones, por ejemplo, al protocolo de arquitectura de la Máquina Virtual de Ethereum (EVM), van a mejorar la escalabilidad o la seguridad. Si esas ocasiones se presentan, las vamos a aprovechar.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;No discriminación&lt;/strong&gt; y &lt;strong&gt;no censura&lt;/strong&gt;: el protocolo no debería tratar de restringir o prevenir categorías específicas de uso. Todos los mecanismos regulatorios en el protocolo deberían ser diseñados para regular directamente el daño y no tratar de oponerse a aplicaciones específicas no deseadas. Un programador puede incluso ejecutar un bucle infinito encima de Ethereum mientras esté dispuesto a seguir pagando el costo de la transacción de cada instrucción de cómputo.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h3 id=&quot;las-cuentas-de-ethereum&quot;&gt;Las cuentas de Ethereum&lt;/h3&gt;
+
+&lt;p&gt;En Ethereum el estado se compone de objetos llamados “cuentas” cada una con una dirección de 20 bytes y con estados de transición que representan transferencias directas de valor e información entre cuentas. Una cuenta de Ethereum contiene cuatro campos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El número único (nonce) que se usa para asegurarse de que cada transacción se pueda procesar solo una vez.&lt;/li&gt;
+  &lt;li&gt;El balance actual de ether de la cuenta&lt;/li&gt;
+  &lt;li&gt;El código de contrato de la cuenta si existe&lt;/li&gt;
+  &lt;li&gt;El almacenamiento de la cuenta (vacío por defecto)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;“Ether” es el principal criptocombustible de Ethereum y se usa para pagar costos de transacción. En general, hay dos tipos de cuentas: &lt;strong&gt;cuentas de propiedad externa&lt;/strong&gt;, controladas por claves privadas y &lt;strong&gt;cuentas de contrato&lt;/strong&gt; controladas por código de contrato. Una cuenta de propiedad externa no tiene código y se pueden enviar mensajes desde una de estas cuentas creando y firmando una transacción; en una cuenta de contrato, cada vez que se recibe un mensaje, el código se activa, lo que permite leer y escribir al almacenamiento interno y enviar otros mensajes o crear contratos a su vez.&lt;/p&gt;
+
+&lt;p&gt;Nótese que los “contratos” en Ethereum no deben verse como algo que debe ser “ejecutado” o “cumplido”; son más bien como “agentes autónomos” que viven dentro del ambiente de ejecución de Ethereum y siempre están ejecutando un segmento específico de código cuando son “despertados” por un mensaje o una transacción y además tienen control directo sobre su propio balance de ether y tienen su propio almacenamiento tipo clave/valor para registrar variables persistentes.&lt;/p&gt;
+
+&lt;h3 id=&quot;mensajes-y-transacciones&quot;&gt;Mensajes y Transacciones&lt;/h3&gt;
+
+&lt;p&gt;El término “transacción” se usa en Ethereum para referirse a un paquede de datos firmado que guarda un mensaje que se va a enviar a una cuenta de propiedad externa. Las transacciones contienen:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El destinatario del mensaje&lt;/li&gt;
+  &lt;li&gt;Una firma que identifica al remitente&lt;/li&gt;
+  &lt;li&gt;La cantidad de ether que se transfiere de remitente a destinatario&lt;/li&gt;
+  &lt;li&gt;Un campo de datos opcional&lt;/li&gt;
+  &lt;li&gt;un valor STARTGAS que representa el número máximo de instrucciones computacionales que la ejecución de la transacción tiene permitido hacer&lt;/li&gt;
+  &lt;li&gt;Un valor GASPRICE que representa pago que el remitente hace por cada instrucción computacional&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Los primeros tres son campos estándar que se esperan en cualquier criptomoneda. El campo de datos no tiene una función por defecto, pero la máquina virtual tiene un código de operación que un contrato puede usar para acceder a los datos. Como un ejemplo de caso de uso, si un contrato está funcionando como servicio de registro de dominios basado en blockchain, entonces podría interpretar los datos que está recibiendo como compuestos de dos campos: el primer campo es el dominio que hay que registrar y el segundo campo es la dirección IP a la que hay que asociar. El contrato leería estos valores desde los datos del mensaje y los guardaría apropiadamente en el almacenamiento.&lt;/p&gt;
+
+&lt;p&gt;Los campos STARTGAS y GASPRICE son cruciales para el modelo antinegación de servicio (DDoS). de Ethereum. Para evitar bucles infinitos accidentales u hostiles o cualquier otro  desperdicio computacional en código, cada transacción necesita establecer un límite acerca de cuantas instrucciones computacionales de ejecución de código puede utilizar. La unidad fundamental de computación es el “gas”; generalmente una instrucción computacional cuasta 1 gas aunque ciertas operaciones tiene un mayor costo por ser más intensas computacionalmente o porque aumentan la cantidad de datos que debe ser almacenado como parte del estado. También hay un pago de 5 gas para cada byte en los datos de transacción. La intención del sistema de pagos es para exigir a un atacante que pague proporcionalmente a cada recurso que consume incuido computacón, ancho de banda y almacenamiento. De esta forma, cualquier transacción que lleve al consumo de una mayor cantidad de cualquiera de estos recursos debe pagar una comisión en gas justamente proporcional al ese incremento&lt;/p&gt;
+
+&lt;h3 id=&quot;mensajes&quot;&gt;Mensajes&lt;/h3&gt;
+
+&lt;p&gt;Los contratos tienen la capacidad de enviar “mensajes” a otros contratos. Los mensajes son objetos virtuales que nunca se serializan y solo existen en el ambiente de ejecución de Ethereum. Un mensaje contiene:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El remitente del mensaje (implícito)&lt;/li&gt;
+  &lt;li&gt;El destinatario del mensaje&lt;/li&gt;
+  &lt;li&gt;La cantidad de ether para transferir junto con el mensaje&lt;/li&gt;
+  &lt;li&gt;Un campo de datos opcional&lt;/li&gt;
+  &lt;li&gt;Un valor de STARTGAS&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 -0500</pubDate>
         <link>https://leonardo384.github.io/criptomonedas/2019/01/05/documentacion-tecnica-de-ethereum/</link>
