@@ -5,8 +5,8 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Jan 2019 18:25:26 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Jan 2019 18:25:26 -0500</lastBuildDate>
+    <pubDate>Mon, 07 Jan 2019 18:44:55 -0500</pubDate>
+    <lastBuildDate>Mon, 07 Jan 2019 18:44:55 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -96,6 +96,39 @@ Los tests computacionales posteriores en el proceso de desarrollo nos pueden lle
   &lt;li&gt;Un campo de datos opcional&lt;/li&gt;
   &lt;li&gt;Un valor de STARTGAS&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;Básicamente un mensaje es como una transición, excepto que es producido por un contrato y no un actor central. Un mensaje se produce cuando el código actual en ejecución del contrato llama al código operacional &lt;code class=&quot;highlighter-rouge&quot;&gt;CALL&lt;/code&gt; el cual crea y ejecuta un mensaje. Al igual que en una transacción, un mensaje causa que la cuenta del remitente ejecute su código. Así, los contratos pueden relacionarse con otros contratos de la misma forma que los actores externos lo hacen.&lt;/p&gt;
+
+&lt;h3 id=&quot;la-funcin-de-transicin-de-estado-de-ethereum&quot;&gt; La Función de Transición de Estado de Ethereum&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/ethereumbuilders/GitBook/master/en/vitalik-diagrams/ethertransition.png&quot; alt=&quot;funcion de transicion estado de etehereum&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;La función de transición de estado de Ethereum, &lt;code class=&quot;highlighter-rouge&quot;&gt;APPLY(S, TX) -&amp;gt; S&#39;&lt;/code&gt; se puede definir así:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Revisa si la transacción está bien formada (es decir, tiene el número correcto de valores), si la firma es válida y el nonce corresponde al nonce en la cuenta del remitente. De otra forma, devuelve un error.&lt;/li&gt;
+  &lt;li&gt;Calcula la comisión de la transacción como &lt;code class=&quot;highlighter-rouge&quot;&gt;STARTGAS * GASPRICE&lt;/code&gt;, y determina la dirección de remisión a partir de la firma. Sustrae la comisión desde el balance de la cuenta del remitente y aumenta el nonce del remitente. Si no hay balance suficiente para gastar, devuelve un error.&lt;/li&gt;
+  &lt;li&gt;Inicia &lt;code class=&quot;highlighter-rouge&quot;&gt;GAS = STARTGAS&lt;/code&gt; y retira cierta cantidad de gas por byte para pagar los bytes de la transacción.&lt;/li&gt;
+  &lt;li&gt;Transfiere el valor de la transacción desde la cuenta del remitente a la cuenta del destinatario. Si la cuenta del destinatario no existe todavía, la crea. Si la cuenta del destinatario es un contrato, ejecuta el código del contrato hasta completarlo o hasta que la ejecución consuma todo el gas.&lt;/li&gt;
+  &lt;li&gt;Si transferencia de valor falla porque el remitente carecía de suficiente dinero o porque la ejecución del código consumió todo el gas, revierte todos los cambios en el estado excepto el pago de las comisiones y agrega las comisiones a la cuenta del minero.&lt;/li&gt;
+  &lt;li&gt;De otra forma, reembolsa las comisiones correspondientes a los gas que sobraron al remitente y envia las comisiones de los gas consumidos al minero.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Por ejemplo, supongamos que el código del contrato es:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-serpent&quot; data-lang=&quot;serpent&quot;&gt;if !self.storage[calldataload(0)]:
+    self.storage[calldataload(0)] = calldataload(32)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Hay que anotar que en realidad el código del contrato está escrito en código de EVM de bajo nivel; el ejemplo mostrado está escrito en Serpent, uno de nuestros lenguajes de alto nivel, como ilustración, y pude ser compilado a código EVM. Suponga que el almacenamiento del contrato empieza vacío y se envía una transacción con un valor de 10 ether, 2000 gas, 0.0001 ether gasprice y 64 bytes de datos con los bytes 0-31 que representan el número &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; y los bytes 32-63 que corresponden a la cadena &lt;code class=&quot;highlighter-rouge&quot;&gt;CHARLIE&lt;/code&gt;. El proceso para la función de transición de estado es como sigue:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Revisa que la transacción es válida y bien formada.&lt;/li&gt;
+  &lt;li&gt;Revisa que el remitente de la transacción posee por lo menos 2000 * 0.001 ether. Si es así, sustrae 2 ether de la cuenta del remitente.&lt;/li&gt;
+  &lt;li&gt;Inicializa gas = 2000; al asumir que la transacción es de 170 bytes y que la comisión por byte es de 5, resta 850 de modo que quedan 1150 gas.&lt;/li&gt;
+  &lt;li&gt;Retira 10 ether más de la cuenta del remitente y los agrega a la cuenta del contrato.&lt;/li&gt;
+  &lt;li&gt;Ejecuta el código. En este caso, es muy simple: revisa si se usa el almacenamiento del contrato en el índice 2, nota que no es así, así que asigna al almacenamiento en el índice 2 el valor &lt;code class=&quot;highlighter-rouge&quot;&gt;CHARLIE&lt;/code&gt;. Suponga que esto toma 187 gas. El resto del gas es 1150 - 187 = 963.&lt;/li&gt;
+  &lt;li&gt;Regresa 963*0.001 ether a la cuenta del remitente y devuelve el estado resultante.&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 -0500</pubDate>
         <link>https://leonardo384.github.io/criptomonedas/2019/01/05/documentacion-tecnica-de-ethereum/</link>

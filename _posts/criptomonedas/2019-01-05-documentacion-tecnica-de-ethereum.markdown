@@ -75,3 +75,34 @@ Los contratos tienen la capacidad de enviar "mensajes" a otros contratos. Los me
 *  La cantidad de ether para transferir junto con el mensaje
 *  Un campo de datos opcional
 *  Un valor de STARTGAS
+
+Básicamente un mensaje es como una transición, excepto que es producido por un contrato y no un actor central. Un mensaje se produce cuando el código actual en ejecución del contrato llama al código operacional `CALL` el cual crea y ejecuta un mensaje. Al igual que en una transacción, un mensaje causa que la cuenta del remitente ejecute su código. Así, los contratos pueden relacionarse con otros contratos de la misma forma que los actores externos lo hacen.
+
+### La Función de Transición de Estado de Ethereum
+
+![funcion de transicion estado de etehereum](https://raw.githubusercontent.com/ethereumbuilders/GitBook/master/en/vitalik-diagrams/ethertransition.png)
+
+La función de transición de estado de Ethereum, `APPLY(S, TX) -> S'` se puede definir así:
+
+1. Revisa si la transacción está bien formada (es decir, tiene el número correcto de valores), si la firma es válida y el nonce corresponde al nonce en la cuenta del remitente. De otra forma, devuelve un error.
+2. Calcula la comisión de la transacción como `STARTGAS * GASPRICE`, y determina la dirección de remisión a partir de la firma. Sustrae la comisión desde el balance de la cuenta del remitente y aumenta el nonce del remitente. Si no hay balance suficiente para gastar, devuelve un error.
+3. Inicia `GAS = STARTGAS` y retira cierta cantidad de gas por byte para pagar los bytes de la transacción.
+4. Transfiere el valor de la transacción desde la cuenta del remitente a la cuenta del destinatario. Si la cuenta del destinatario no existe todavía, la crea. Si la cuenta del destinatario es un contrato, ejecuta el código del contrato hasta completarlo o hasta que la ejecución consuma todo el gas.
+5. Si transferencia de valor falla porque el remitente carecía de suficiente dinero o porque la ejecución del código consumió todo el gas, revierte todos los cambios en el estado excepto el pago de las comisiones y agrega las comisiones a la cuenta del minero.
+6. De otra forma, reembolsa las comisiones correspondientes a los gas que sobraron al remitente y envia las comisiones de los gas consumidos al minero.
+
+Por ejemplo, supongamos que el código del contrato es:
+
+{% highlight serpent %}
+if !self.storage[calldataload(0)]:
+    self.storage[calldataload(0)] = calldataload(32)
+{% endhighlight %}
+
+Hay que anotar que en realidad el código del contrato está escrito en código de EVM de bajo nivel; el ejemplo mostrado está escrito en Serpent, uno de nuestros lenguajes de alto nivel, como ilustración, y pude ser compilado a código EVM. Suponga que el almacenamiento del contrato empieza vacío y se envía una transacción con un valor de 10 ether, 2000 gas, 0.0001 ether gasprice y 64 bytes de datos con los bytes 0-31 que representan el número `2` y los bytes 32-63 que corresponden a la cadena `CHARLIE`. El proceso para la función de transición de estado es como sigue:
+
+1. Revisa que la transacción es válida y bien formada.
+2. Revisa que el remitente de la transacción posee por lo menos 2000 * 0.001 ether. Si es así, sustrae 2 ether de la cuenta del remitente.
+3. Inicializa gas = 2000; al asumir que la transacción es de 170 bytes y que la comisión por byte es de 5, resta 850 de modo que quedan 1150 gas.
+4. Retira 10 ether más de la cuenta del remitente y los agrega a la cuenta del contrato.
+5. Ejecuta el código. En este caso, es muy simple: revisa si se usa el almacenamiento del contrato en el índice 2, nota que no es así, así que asigna al almacenamiento en el índice 2 el valor ```CHARLIE```. Suponga que esto toma 187 gas. El resto del gas es 1150 - 187 = 963.
+6. Regresa 963*0.001 ether a la cuenta del remitente y devuelve el estado resultante.
