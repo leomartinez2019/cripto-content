@@ -5,8 +5,8 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 07 Jan 2019 18:44:55 -0500</pubDate>
-    <lastBuildDate>Mon, 07 Jan 2019 18:44:55 -0500</lastBuildDate>
+    <pubDate>Tue, 08 Jan 2019 17:41:35 -0500</pubDate>
+    <lastBuildDate>Tue, 08 Jan 2019 17:41:35 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -99,7 +99,7 @@ Los tests computacionales posteriores en el proceso de desarrollo nos pueden lle
 
 &lt;p&gt;Básicamente un mensaje es como una transición, excepto que es producido por un contrato y no un actor central. Un mensaje se produce cuando el código actual en ejecución del contrato llama al código operacional &lt;code class=&quot;highlighter-rouge&quot;&gt;CALL&lt;/code&gt; el cual crea y ejecuta un mensaje. Al igual que en una transacción, un mensaje causa que la cuenta del remitente ejecute su código. Así, los contratos pueden relacionarse con otros contratos de la misma forma que los actores externos lo hacen.&lt;/p&gt;
 
-&lt;h3 id=&quot;la-funcin-de-transicin-de-estado-de-ethereum&quot;&gt; La Función de Transición de Estado de Ethereum&lt;/h3&gt;
+&lt;h3 id=&quot;la-funcin-de-transicin-de-estado-de-ethereum&quot;&gt;La Función de Transición de Estado de Ethereum&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/ethereumbuilders/GitBook/master/en/vitalik-diagrams/ethertransition.png&quot; alt=&quot;funcion de transicion estado de etehereum&quot; /&gt;&lt;/p&gt;
 
@@ -119,7 +119,7 @@ Los tests computacionales posteriores en el proceso de desarrollo nos pueden lle
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-serpent&quot; data-lang=&quot;serpent&quot;&gt;if !self.storage[calldataload(0)]:
     self.storage[calldataload(0)] = calldataload(32)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Hay que anotar que en realidad el código del contrato está escrito en código de EVM de bajo nivel; el ejemplo mostrado está escrito en Serpent, uno de nuestros lenguajes de alto nivel, como ilustración, y pude ser compilado a código EVM. Suponga que el almacenamiento del contrato empieza vacío y se envía una transacción con un valor de 10 ether, 2000 gas, 0.0001 ether gasprice y 64 bytes de datos con los bytes 0-31 que representan el número &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; y los bytes 32-63 que corresponden a la cadena &lt;code class=&quot;highlighter-rouge&quot;&gt;CHARLIE&lt;/code&gt;. El proceso para la función de transición de estado es como sigue:&lt;/p&gt;
+&lt;p&gt;Hay que anotar que en realidad el código del contrato está escrito en código de EVM de bajo nivel; el ejemplo mostrado está escrito en Serpent, uno de nuestros lenguajes de alto nivel, a modo de ilustración, y pude ser compilado a código EVM. Suponga que el almacenamiento del contrato inicia vacío y se envía una transacción con un valor de 10 ether, 2000 gas, 0.0001 ether de gasprice y 64 bytes de datos con los bytes 0-31 que representan el número &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; y los bytes 32-63 que corresponden a la cadena &lt;code class=&quot;highlighter-rouge&quot;&gt;CHARLIE&lt;/code&gt;. El proceso para la función de transición de estado es como sigue:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Revisa que la transacción es válida y bien formada.&lt;/li&gt;
@@ -128,6 +128,39 @@ Los tests computacionales posteriores en el proceso de desarrollo nos pueden lle
   &lt;li&gt;Retira 10 ether más de la cuenta del remitente y los agrega a la cuenta del contrato.&lt;/li&gt;
   &lt;li&gt;Ejecuta el código. En este caso, es muy simple: revisa si se usa el almacenamiento del contrato en el índice 2, nota que no es así, así que asigna al almacenamiento en el índice 2 el valor &lt;code class=&quot;highlighter-rouge&quot;&gt;CHARLIE&lt;/code&gt;. Suponga que esto toma 187 gas. El resto del gas es 1150 - 187 = 963.&lt;/li&gt;
   &lt;li&gt;Regresa 963*0.001 ether a la cuenta del remitente y devuelve el estado resultante.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Nótese que los mensajes funcionan de forma equivalente a transacciones en términos de capacidad de revertir: si la ejecución de un mensaje agota el gas, entonces esa ejecución y todas las ejecuciones desencadenadas por ella se revierten, pero las ejecucuines anteriores no tienen por que hacer esto. Esto quiere decir que es “seguro” para un contrato llamar a otro contrato debido a que si A invoca a B con G cantidad de gas, entonces se garantiza que la ejecución de A pierde a lo mucho G gas. Finalmente, nótese que hay un código operacional, &lt;code class=&quot;highlighter-rouge&quot;&gt;CREATE&lt;/code&gt;, que que crea un contrato; la mecánica de su ejecución es generalemnte similar a &lt;code class=&quot;highlighter-rouge&quot;&gt;CALL&lt;/code&gt; con la excepción de que la salida de la ejecución determina el código de un contrato recién creado.&lt;/p&gt;
+
+&lt;h3 id=&quot;ejecucin-de-cdigo&quot;&gt;Ejecución de Código&lt;/h3&gt;
+
+&lt;p&gt;El código en los contratos Ethereum está escrito en un lenguaje bytecode de bajo nivel basado en stacks, conocido como “código de máquina virtual de Ethereum” o “código EVM”. El código compone de una serie de bytes donde cada byte representa una operación. En general, la ejecución de código es un bucle infinito que consiste en llevar a cabo de forma repetitiva la operación en el contador actual del programa (que comienza en cero) y luego incrementando este contador unitariamente hasta alcanzar el final del código o hasta detectar una instrucción &lt;code class=&quot;highlighter-rouge&quot;&gt;STOP&lt;/code&gt; o &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt;. Las operaciones tienen acceso a a tres tipos de espacio en donde almacenar los datos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El &lt;strong&gt;stack&lt;/strong&gt;, un contenedor de tipo entra-último-sale-primero donde se ingresan y se retiran los valores&lt;/li&gt;
+  &lt;li&gt;La &lt;strong&gt;memoria&lt;/strong&gt;, una arreglo de bytes que se puede expandir infinitamente&lt;/li&gt;
+  &lt;li&gt;El &lt;strong&gt;almacenamiento&lt;/strong&gt; a largo plazo del contrato de tipo clave/valor. A diferencia del stack y la memoria que se reinician cuando se termina el cálculo, el almacenamiento persiste a largo plazo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;El código pude acceder al valor, remitente y datos del mensaje entrante, al igual que a los datos de la cabecera del bloque, y el código puede también retornar un arreglo de bytes de datos como salida.&lt;/p&gt;
+
+&lt;p&gt;El modelo de ejecución formal del código EVM es sorprendentemente simple. Mientras la máquina virtual Ethereum está corriendo, su estado computacional completo se puede definir por la tupla &lt;code class=&quot;highlighter-rouge&quot;&gt;(block_state, transaction, message, code, memory, stack, pc, gas)&lt;/code&gt;; aquí &lt;code class=&quot;highlighter-rouge&quot;&gt;block_state&lt;/code&gt; es el estado global que contiene todas las cuentas, incluyendo los balances y el almacenamiento. Al comienzo de cada ronda de ejecución, la instrucción actual se encuentra tomando el byte &lt;code class=&quot;highlighter-rouge&quot;&gt;pc&lt;/code&gt;-ésimo del &lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt; (ó 0 si &lt;code class=&quot;highlighter-rouge&quot;&gt;pc &amp;gt;= len(code)&lt;/code&gt;), y cada instrucción tiene su propia definición de acuerdo a su efecto en la tupla. Por ejemplo, &lt;code class=&quot;highlighter-rouge&quot;&gt;ADD&lt;/code&gt; retira dos elementos del stack e ingresa su suma, reduce el &lt;code class=&quot;highlighter-rouge&quot;&gt;gas&lt;/code&gt; en una unidad e incrementa &lt;code class=&quot;highlighter-rouge&quot;&gt;pc&lt;/code&gt; en una unidad, luego &lt;code class=&quot;highlighter-rouge&quot;&gt;SSTORE&lt;/code&gt; retira dos elementos del stack e inserta el segundo objeto en el almacenamiento del contrato en el índice especificado por el primer objeto. Aunque hay muchas formas de optimizar la ejecución de la máquina virtual de Ethereum a través de compilación &lt;em&gt;just-in-time&lt;/em&gt;, se puede hacer una implementación básica de Ethereum en unos cuantos cientos de líneas de código.&lt;/p&gt;
+
+&lt;h3 id=&quot;blockchain-y-minera&quot;&gt;Blockchain y Minería&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/ethereumbuilders/GitBook/master/en/vitalik-diagrams/apply_block_diagram.png&quot; alt=&quot;diagrama de bloques&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;El blockchain de Ethereum es en esencia muy similar al de Bitcoin, aunque tiene algunas diferencias. La principal diferencia entre Ethereum y Bitcoin con respecto a la arquitectura blockchain es que a diferencia de Bitcoin (que sólo contiene una copia de la lista de transacciones), los bloques de Ethereum contienen una copia tanto de la lista de transacciones como del estado más reciente. Aparte de eso, otros dos valores, el número del bloque y la dificultad, también se almacenan en el bloque. El algoritmo básico de validación de Ethereum es así:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Revisar si el bloque previo referenciado existe y es válido.&lt;/li&gt;
+  &lt;li&gt;Revisar que la marca cronológica del bloque es mayor que la del bloque previo referenciado y menor que 15 minutos en el futuro.&lt;/li&gt;
+  &lt;li&gt;Revisar que el número del bloque, la dificultad, la raíz de la transacción, la raíz “tío” y el límite de gas (conceptos de bajo nivel específicos a Ethereum) son válidos.&lt;/li&gt;
+  &lt;li&gt;Revisar que la prueba de trabajo en el bloque es válido.&lt;/li&gt;
+  &lt;li&gt;Asignar a &lt;code class=&quot;highlighter-rouge&quot;&gt;S[0]&lt;/code&gt; el estado al final del bloque anterior.&lt;/li&gt;
+  &lt;li&gt;Asignar a &lt;code class=&quot;highlighter-rouge&quot;&gt;TX&lt;/code&gt; la lista de transacciones del bloque, con &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; transacciones. Para todo &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; en &lt;code class=&quot;highlighter-rouge&quot;&gt;0...n-1&lt;/code&gt;, establecer &lt;code class=&quot;highlighter-rouge&quot;&gt;S[i+1] = APPLY(S[i], TX[i])&lt;/code&gt;. Si alguna aplicación retorna un error, o si el gas total consumido en el bloque hasta este punto excede el &lt;code class=&quot;highlighter-rouge&quot;&gt;GASLIMIT&lt;/code&gt;, retornar un error.&lt;/li&gt;
+  &lt;li&gt;Asignar a &lt;code class=&quot;highlighter-rouge&quot;&gt;S_FINAL&lt;/code&gt; el valor de &lt;code class=&quot;highlighter-rouge&quot;&gt;S[n]&lt;/code&gt; pero agregando la recompensa del bloque al minero.&lt;/li&gt;
+  &lt;li&gt;Revisar si la raíz del árbol de Merkle del estado &lt;code class=&quot;highlighter-rouge&quot;&gt;S_FINAL&lt;/code&gt; es igual a la raíz del estado final que aparece en la cabecera del bloque. Si es así, el bloque es válido; de otra forma, no es válido.&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 -0500</pubDate>
