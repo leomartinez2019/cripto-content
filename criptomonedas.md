@@ -10,12 +10,12 @@ permalink: /criptomonedas/
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h1 class="post-title-list">            {{ post.title }}
         </h1>
-        {% if post.description %}
-        <h3 class="post-description">
-            {{ post.description }}
-        </h3>
-        {% endif %}
     </a>
+        {% if post.description %}
+        <p class="post-description">
+            {{ post.description }}
+        </p>
+        {% endif %}
     <p class="post-meta" style="margin-bottom:5px">
         Publicado el 
         {{ post.date | date: "%-d de " }}

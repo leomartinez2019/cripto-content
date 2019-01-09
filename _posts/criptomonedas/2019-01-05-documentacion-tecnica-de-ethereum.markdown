@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Documentación Técnica de Ethereum
+description: "Traducción del whitepaper de Ethereum"
 categories: criptomonedas
 ---
 
