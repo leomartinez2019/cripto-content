@@ -280,6 +280,8 @@ pre {
   list-style: none; }
   .post-list > li {
     margin-bottom: 30px; }
+    .post-list > li > h2 {
+      margin-bottom: 0; }
 
 .post-meta {
   font-size: 14px;

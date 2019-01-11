@@ -5,9 +5,39 @@
     <description>Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero</description>
     <link>https://leonardo384.github.io/</link>
     <atom:link href="https://leonardo384.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 08 Jan 2019 18:59:06 -0500</pubDate>
-    <lastBuildDate>Tue, 08 Jan 2019 18:59:06 -0500</lastBuildDate>
+    <pubDate>Fri, 11 Jan 2019 09:13:29 -0500</pubDate>
+    <lastBuildDate>Fri, 11 Jan 2019 09:13:29 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Documentación Técnica de 0x</title>
+        <description>&lt;div style=&quot;text-align:center;&quot;&gt;
+  &lt;h3&gt;0x: Un protocolo para el intercambio descentralizado en el blockchain de Ethereum&lt;/h3&gt;
+  &lt;div style=&quot;margin: 32px 0 32px 0; line-height: 2.0px&quot;&gt;
+  &lt;p&gt;Will Warren, Amir Bandealli&lt;/p&gt;
+  &lt;p&gt;0xProject.com&lt;/p&gt;
+  &lt;p&gt;Febrero 21, 2017&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;font-size: 90%; text-align: justify; width: 80%; margin: auto;&quot;&gt;
+&lt;b&gt;Resumen&lt;/b&gt;. Describimos un protocolo que facilita un intercambio de baja fricción entre pares de tokens ERC20 en el blockchain de Ethereum. El protocolo tiene la intención de servir como un bloque de estándar abierto y de estructuración común que impulsa la interoperatividad entre las aplicaciones descentralizadas (dApps) que incorporan la funcionalidad del intercambio. Los intercambios se ejecutan a través de un sistema de contratos inteligentes de Ethereum que son accesibles públicamente, gratis de usar y a la que cualquier dApp se puede conectar. Las dApps creadas encima del protocolo pueden acceder a fondos públicos de liquidez y crear su propia liquidez y cobrar comisiones de transacción sobre los volúmenes resultantes. El protocolo es abierto: no impone costos a sus usuarios o extrae valor arbitrariamente de un grupo de usuarios para beneficiar a otro grupo. La gestión descentralizada se usa para integrar actualizaciones de forma continua y segura en el protocolo base sin perturbar las dApps  o los usuarios finales.
+&lt;/div&gt;
+
+&lt;h3 id=&quot;introduccin&quot;&gt;1. Introducción&lt;/h3&gt;
+
+&lt;p&gt;Los blockchain han sido revolucionarios al permitir a cualquiera poseer y transferir activos a través de una red financiera abierta sin la necesidad de un tercero garante. Ahora que hay cientos de activos basados en blockchain, y cada mes se agregan más, la necesidad de intercambiar estos activos es creciente. Con la llegada de los contratos inteligentes, es posible para dos o más partes intercambiar activos blockchain sin la necesidad de un intermediario garante.&lt;/p&gt;
+
+&lt;p&gt;Un intercambio descentralizado es un avance importante en el ecosistema de intercambios centralizados por varias razones claves: los intercambios descentralizados puden brindar garantías más fuertes de seguridad a los usuarios finales ya que no existe un tercero que pueda ser hackeado, los fondeos de sus clientes robados, o ser sujetos de regulaciones gubernamentales. Los hacks de MT. Gox, Shapeshift y Bitfinex [2,3] han demostrado que estos tipos de riesgos sistemáticos son palpables. El intercambio descentralizado va a eliminar estos riesgos al permitir a los usuarios hacer transacciones sin intermediarios y al imponer la carga de la seguridad en los usuarios individuales en vez de un guardian solitario.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 08 Jan 2019 00:00:00 -0500</pubDate>
+        <link>https://leonardo384.github.io/criptomonedas/2019/01/08/documentacion-tecnica-de-0x/</link>
+        <guid isPermaLink="true">https://leonardo384.github.io/criptomonedas/2019/01/08/documentacion-tecnica-de-0x/</guid>
+        
+        
+        <category>criptomonedas</category>
+        
+      </item>
     
       <item>
         <title>Documentación Técnica de Ethereum</title>
@@ -277,9 +307,9 @@ Si se verifican los hash hasta la raíz se puede comprobar la pertenencia al ár
     
       <item>
         <title>Documentación Técnica de Bitcoin</title>
-        <description>&lt;div style=&quot;text-align:center; line-height: 0.5&quot;&gt;
+        <description>&lt;div style=&quot;text-align:center;&quot;&gt;
   &lt;h3&gt;Bitcoin: Un Sistema Distribuido de Dinero Electrónico&lt;/h3&gt;
-  &lt;div style=&quot;margin: 32px 0 32px 0;&quot;&gt;
+  &lt;div style=&quot;margin: 32px 0 32px 0;line-height: 2.0px&quot;&gt;
   &lt;p&gt;Satoshi Nakamoto&lt;/p&gt;
   &lt;p&gt;satoshin@gmx.com&lt;/p&gt;
   &lt;p&gt;www.bitcoin.org&lt;/p&gt;

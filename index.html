@@ -4,12 +4,32 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <h1 class="page-heading">Publicaciones</h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="post-meta">
+            {% assign month = post.date | date: "%m" %}
+            {% case month %}
+    
+              {% when '01' %} Enero
+              {% when '02' %} Febrero
+              {% when '03' %} Marzo
+              {% when '04' %} Abril
+              {% when '05' %} Mayo
+              {% when '06' %} Junio
+              {% when '07' %} Julio
+              {% when '08' %} Agosto
+              {% when '09' %} Septiembre
+              {% when '10' %} Octubre
+              {% when '11' %} Noviembre
+              {% when '12' %} Diciembre
+    
+            {% endcase %}
+          {{ post.date | date: "%-d, %Y" }}
+          
+        </span>
 
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
