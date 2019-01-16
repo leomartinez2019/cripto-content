@@ -7,12 +7,12 @@ categories: criptomonedas
 
 La intención de Ethereum es crear un protocolo alternativo para desarrollar aplicaciones descentralizadas
 al introducir un conjunto nuevo de aspectos que creemos serán de gran uso en una clase extensa de aplicaciones descentralizadas, sobretodo en situaciones
-donde importan el tiempo de desarrollo, la seguridad para aplicaciones pequeñas y poco usadas,
-y la capacidad de interacción eficiente de diferentes aplicaciones. Ethereum logra esto construyendo lo que esencialmente es la mayor capa fundamental abstracta: un blockchain con un lenguaje Turing completo incorporado que le permite a cualquiera escribir contratos inteligentes y aplicaciones
-descentralizadas donde se pueden crear reglas propias y arbitrarias de propiedad, formatos de transacción y funciones de transición de estado.
+donde importan el tiempo de desarrollo, la seguridad para aplicaciones pequeñas y poco usadas
+y la capacidad de interacción eficiente de diferentes aplicaciones. Ethereum logra esto construyendo lo que esencialmente es la mayor capa fundamental abstracta: una blockchain con un lenguaje Turing completo incorporado que le permite a cualquiera escribir contratos inteligentes y aplicaciones
+descentralizadas donde se pueden crear reglas de propiedad propias y arbitrarias, formatos de transacción y funciones de transición de estado.
 Se puede escribir una versión esencial de Namecoin en solo dos líneas de código y otros protocolos tales como divisas y sistemas de reputación en menos de veinte líneas.
 También se pueden crear sobre la plataforma contratos inteligentes que son especies de  "cajas" criptográficas que contienen un valor y lo revelan solo si se cumplen ciertas condiciones.
-Éstas tienen mucho más poder que las que ofrece el código de Bitcoin debido a las capacidades agregadas de la completitud de Turing, el reconocimiento del valor, del blockchain y del estado.
+Éstas tienen mucho más poder que las que ofrece el código de Bitcoin debido a las capacidades agregadas de la completitud de Turing, el reconocimiento del valor, de la blockchain y del estado.
 
 ### Filosofía
 
@@ -127,7 +127,7 @@ El modelo de ejecución formal del código EVM es sorprendentemente simple. Mien
 
 ![diagrama de bloques](https://raw.githubusercontent.com/ethereumbuilders/GitBook/master/en/vitalik-diagrams/apply_block_diagram.png)
 
-El blockchain de Ethereum es en esencia muy similar al de Bitcoin, aunque tiene algunas diferencias. La principal diferencia entre Ethereum y Bitcoin con respecto a la arquitectura blockchain es que a diferencia de Bitcoin (que sólo contiene una copia de la lista de transacciones), los bloques de Ethereum contienen una copia tanto de la lista de transacciones como del estado más reciente. Aparte de eso, otros dos valores, el número del bloque y la dificultad, también se almacenan en el bloque. El algoritmo básico de validación de Ethereum es así:
+La blockchain de Ethereum es en esencia muy similar al de Bitcoin, aunque tiene algunas diferencias. La principal diferencia entre Ethereum y Bitcoin con respecto a la arquitectura blockchain es que a diferencia de Bitcoin (que sólo contiene una copia de la lista de transacciones), los bloques de Ethereum contienen una copia tanto de la lista de transacciones como del estado más reciente. Aparte de eso, otros dos valores, el número del bloque y la dificultad, también se almacenan en el bloque. El algoritmo básico de validación de Ethereum es así:
 
 1. Revisar si el bloque previo referenciado existe y es válido.
 2. Revisar que la marca cronológica del bloque es mayor que la del bloque previo referenciado y menor que 15 minutos en el futuro.
