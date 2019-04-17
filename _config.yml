@@ -3,7 +3,7 @@ title: Bitcoin y Criptomonedas
 email: lowenhard@yahoo.com
 description: Mis opiniones e investigaciones acerca del mundo de Bitcoin, Blockchain y criptomonedas que serán el futuro de la Internet del dinero
 baseurl: "/cripto-content" # the subpath of your site, e.g. /blog
-url: "https://leonardo384.github.io" # the base hostname & protocol for your site
+#url: "https://leonardo384.github.io" # the base hostname & protocol for your site
 twitter_username: Pythonista100
 github_username:  leonardo384
 permalink: pretty
