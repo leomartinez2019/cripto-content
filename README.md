@@ -1,13 +1,3 @@
----
-layout: post
-title:  "Documentación Técnica de Bitcoin"
-description: Traducción del whitepaper original de Satoshi Nakamoto
-date:   2018-12-27 11:56:53 -0500
-categories: bitcoin
-mathjax: true
----
-
-
 <div style="text-align:center;">
   <h3>Bitcoin: Un Sistema Distribuido de Dinero Electrónico</h3>
   <div style="margin: 32px 0 32px 0;line-height: 2.0px">
