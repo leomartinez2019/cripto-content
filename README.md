@@ -162,24 +162,15 @@ La competencia entre la cadena honesta y la cadena del atacante se puede caracte
 
 La probabilidad de que un atacante se ponga al día a partir de un deficit dado es análogo al problema de la Ruina del Apostador.
 Suponga que un apostador con crédito ilimitado comienza con un deficit y juega potencialmente un número infinito de intentos para tratar de alcanzar una paridad. podemos calcular la probabilidad de que alguna vez alcance la paridad
-o que en nuestro caso el atacante alcance la cadena honesta de la siguiente forma:
+o que en nuestro caso el atacante alcance la cadena honesta de la siguiente forma[8]:
 
-$$
-\begin{eqnarray*}
-                \large p &=& \text{ probabilidad de que un nodo honesto encuentre el próximo bloque}\\
-                \large q &=& \text{ probabilidad de que el atacante encuentre el próximo bloque}\\
-                \large q_z &=& \text{ probabilidad de que el atacante alguna vez alcance a los demás a partir de $z$ bloques atrás}
-                \end{eqnarray*}
-$$
+                p =  probabilidad de que un nodo honesto encuentre el próximo bloque
+                q = probabilidad de que el atacante encuentre el próximo bloque
+                qz = probabilidad de que el atacante alguna vez alcance a los demás a partir de z bloques atrás
+                
+![probability](/images/equation1.png)
 
-$$
-\large q_z = \begin{Bmatrix}
-				1 & \textit{si}\; p \leq q\\
-				(q/p)^z & \textit{si}\; p > q
-				\end{Bmatrix}
-$$
-
-Dada la suposición de que  $$p \gt q$$, la probabilidad disminuye exponencialmente a medida que el número de bloques que el atacante debe alcanzar aumenta.
+Dada la suposición de que  p > q, la probabilidad disminuye exponencialmente a medida que el número de bloques que el atacante debe alcanzar aumenta.
 
 Ahora consideramos cuanto tiempo el destinatario de una nueva transacción debe esperar antes de estar lo suficientemente seguro que el remitente no pueda cambiar la transacción. Asumimos que el remitente es un atacante
 que quiere hacer que el destinatario esté convencido por un tiempo de que se le hizo el pago, luego hacer el cambio para pagarse a sí mismo más tarde. El destinatario será alertado cuando eso pase, pero el remitente va a tener la esperanza de que sea demasiado tarde.
@@ -204,16 +195,13 @@ $$
 				\end{Bmatrix}
 $$
 
-Reacomodando para evitar sumar la cola infinita de la distribución...
+Reordenando para evitar sumar la cola infinita de la distribución...
 
-$$
-\large 1 - \sum_{k=0}^{z} \frac{\lambda^k e^{-\lambda}}{k!}
-				\left ( 1-(q/p)^{(z-k)} \right )
-$$
+
 
 Convirtiendo a código C...
 
-{% highlight c %}
+```
 #include
 double ProbabilidadDeExitoDeUnAtacante(double q, int z)
 {
@@ -230,11 +218,11 @@ double ProbabilidadDeExitoDeUnAtacante(double q, int z)
 	}
 	return sum;
 }
-{% endhighlight %}
+```
 
-Al ejecutar algunos resultados podemos ver como la probabilidad disminuye exponencialmente con $$ z $$.
+Al ejecutar algunos resultados podemos ver como la probabilidad disminuye exponencialmente con z.
 
-{% highlight c %}
+```
 q=0.1
 z=0    P=1.0000000
 z=1    P=0.2045873
@@ -260,11 +248,11 @@ z=35   P=0.0000379
 z=40   P=0.0000095
 z=45   P=0.0000024
 z=50   P=0.0000006
-{% endhighlight %}
+```
 
 Resolviendo para P menor que 0.1%...
 
-{% highlight c %}
+```
 P < 0.001
 q=0.10   z=5
 q=0.15   z=8
@@ -274,7 +262,7 @@ q=0.30   z=24
 q=0.35   z=41
 q=0.40   z=89
 q=0.45   z=340
-{% endhighlight %}
+```
 
 ## 12. Conclusión
 
