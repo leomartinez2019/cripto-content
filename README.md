@@ -178,26 +178,18 @@ que quiere hacer que el destinatario esté convencido por un tiempo de que se le
 El destinatario genera un nuevo par de claves y da la clave pública al remitente justo antes de firmar. Esto evita que el remitente prepare una cadena de bloques con anticipación y procesándolo continuamente hasta que es lo bastante afortunado para avanzar lo suficiente y realizar la transacción en ese momento.
 Una vez la transacción es enviada, el remitente deshonesto comienza a trabajar en secreto en una cadena paralela que contiene una versión alterna de la transacción.
 
-El destinatario espera hasta que la transacción ha sido añadida a un bloque y $$ z $$ bloques han sido enlazados luego de ese. Él no sabe la cantidad exacta de progreso que el atacante ha logrado, pero asumiendo que los nodos honestos invirtieron el promedio esperado de tiempo
+El destinatario espera hasta que la transacción ha sido añadida a un bloque y z bloques han sido enlazados luego de ese. Él no sabe la cantidad exacta de progreso que el atacante ha logrado, pero asumiendo que los nodos honestos invirtieron el promedio esperado de tiempo
 por bloque, el progreso potencial del atacante será una distribución de Poisson con el valor esperado:
 
-$$
-\large \lambda = z \frac qp
-$$
+![poisson](/images/poisson-dist.png?raw=true)
 
 Para obtener la probabilidad de un que un atacante pueda ponerse a la par de los demás, multiplicamos la densidad de Poisson para cada nivel de progreso que haya podido alcanzar por la probabilidad de que pueda ponerse al día a partir de ese punto:
 
-$$
-\large \sum_{k=0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} \cdot
-				\begin{Bmatrix}
-				(q/p)^{(z-k)} & \textit{if}\;k\leq z\\
-				1 & \textit{if} \; k > z
-				\end{Bmatrix}
-$$
+![poisson](/images/poisson-dense.png?raw=true)
 
 Reordenando para evitar sumar la cola infinita de la distribución...
 
-
+![poisson](/images/poisson-rearrange.png?raw=true)
 
 Convirtiendo a código C...
 
